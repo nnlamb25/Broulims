@@ -11,4 +11,6 @@ public class FrontPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_front_page);
     }
+
+    //THIS WILL BE A MERGE CONFLICT
 }
