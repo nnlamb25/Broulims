@@ -13,5 +13,5 @@ public class FrontPage extends AppCompatActivity {
     }
 
     //THIS WILL BE A MERGE CONFLICT
-    //this is MY change bro!!
+    //This is Daniel
 }
