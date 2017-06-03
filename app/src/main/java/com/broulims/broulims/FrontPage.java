@@ -1,7 +1,9 @@
 package com.broulims.broulims;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class FrontPage extends AppCompatActivity {
     @Override
@@ -11,4 +13,8 @@ public class FrontPage extends AppCompatActivity {
     }
 
 
+    public void callDB(View view) {
+        Intent intent = new Intent(this, Database.class);
+        startActivity(intent);
+    }
 }

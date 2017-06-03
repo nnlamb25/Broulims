@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Broulim\'s</string>
+    <string name="title_activity_database">Database</string>
 </resources>
