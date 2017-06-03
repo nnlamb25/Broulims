@@ -34,7 +34,7 @@ public class Database extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+                Log.d(TAG, "Value is: " + value); //saves to log
 
                 TextView data = (TextView) findViewById(R.id.dBReturn);
                 data.setText(value);
