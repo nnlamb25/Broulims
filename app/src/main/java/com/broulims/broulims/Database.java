@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 public class Database extends AppCompatActivity {
 
@@ -85,10 +86,24 @@ public class Database extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     protected void parseFile(View view) {
-        Item item = new Item("Apple", "123214", "in the back", 12.00);
-        Gson gson = new Gson();
-        String test = gson.toJson(item);
-        Log.d(TAG, "Value is: " + test); //saves to log
+        // fill the string with all the json objects
+        String collection = null;
+        for (int i = 0; i < 9; i++)
+        {
+            Item item = new Item("Apple", "0" + i, "in the back", 12.00);
+            Gson gson = new Gson();
+            String itemString = gson.toJson(item);
+            collection = collection + itemString;
+        }
+            collection = "{\"items: {" + collection + "}}";
+
+        Log.d(TAG, "Value is: " + collection); //saves to log
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        //this is a call to the database!!!
+        myRef.setValue(collection);
 
     }
 }
