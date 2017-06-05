@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "683653323173",
+    "firebase_url": "https://broulims-913d7.firebaseio.com",
+    "project_id": "broulims-913d7",
+    "storage_bucket": "broulims-913d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683653323173:android:697b003c0b803d7a",
+        "android_client_info": {
+          "package_name": "com.broulims.broulims"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683653323173-7ssbrjb136kruq28rcqvqnni75fl9idd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.broulims.broulims",
+            "certificate_hash": "5b66604819d749a851db2bc52b6d33966ea0014c"
+          }
+        },
+        {
+          "client_id": "683653323173-il21au7gmbrj0fa50sioktbc98lthctu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByEvhul52MRcEKxKrT3hqZ1ygdH4paZB4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683653323173-il21au7gmbrj0fa50sioktbc98lthctu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
