@@ -1,8 +1,11 @@
 package com.broulims.broulims;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -10,6 +13,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 public class Database extends AppCompatActivity {
 
@@ -69,8 +81,14 @@ public class Database extends AppCompatActivity {
 
             }
         });
-
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    protected void parseFile(View view) {
+        Item item = new Item("Apple", "123214", "in the back", 12.00);
+        Gson gson = new Gson();
+        String test = gson.toJson(item);
+        Log.d(TAG, "Value is: " + test); //saves to log
 
+    }
 }

@@ -33,11 +33,11 @@ public class Item {
         return code;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public Item(String location, String name, String code, float price) {
+    public Item(String name, String code, String location, double price) {
         this.location = location;
         this.name = name;
         this.code = code;
@@ -47,7 +47,7 @@ public class Item {
     private String location;
     private String name;
     private String code;
-    private float price;
+    private double price;
 
 
 }
