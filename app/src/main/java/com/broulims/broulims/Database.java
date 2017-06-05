@@ -14,6 +14,9 @@ import com.google.firebase.database.ValueEventListener;
 public class Database extends AppCompatActivity {
 
     private static final String TAG = Database.class.getName();
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = rootRef.child("condition");
+    TextView data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class Database extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase rootRef = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
 
         //this is a call to the database!!!
@@ -36,7 +40,7 @@ public class Database extends AppCompatActivity {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value); //saves to log
 
-                TextView data = (TextView) findViewById(R.id.dBReturn);
+                data = (TextView) findViewById(R.id.dBReturn);
                 data.setText(value);
             }
 
@@ -45,7 +49,27 @@ public class Database extends AppCompatActivity {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
+
         });
+
+    }
+
+    protected void onStart() {
+        Database.super.onStart();
+
+        conditionRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                data.setText(text);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
