@@ -38,12 +38,18 @@ public class Item {
     }
 
 
-
     public Item(String name, String code, String location, double price) {
         this.location = location;
         this.name = name;
         this.code = code;
         this.price = price;
+    }
+
+    public Item() {
+        location = null;
+        name = null;
+        code = null;
+        price = 0;
     }
 
     private String location;

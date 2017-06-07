@@ -27,8 +27,9 @@ import java.util.ArrayList;
 public class Database extends AppCompatActivity {
 
     private static final String TAG = Database.class.getName();
-    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference conditionRef = rootRef.child("condition");
+    private DatabaseReference mDatabase;
+
+
     TextView data;
 
     @Override
@@ -37,24 +38,15 @@ public class Database extends AppCompatActivity {
         setContentView(R.layout.activity_database);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final FirebaseDatabase rootRef = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        //this is a call to the database!!!
-        myRef.setValue("Hello, World!");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value); //saves to log
 
-                data = (TextView) findViewById(R.id.dBReturn);
-                data.setText(value);
             }
 
             @Override
@@ -67,43 +59,21 @@ public class Database extends AppCompatActivity {
 
     }
 
-    protected void onStart() {
-        Database.super.onStart();
-
-        conditionRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                data.setText(text);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     protected void parseFile(View view) {
-        // fill the string with all the json objects
-        String collection = null;
-        for (int i = 0; i < 9; i++)
+        // parse the "file"
+        for (int i = 0; i < 50; i++)
         {
             Item item = new Item("Apple", "0" + i, "in the back", 12.00);
-            Gson gson = new Gson();
-            String itemString = gson.toJson(item);
-            collection = collection + itemString;
+            updateDB(item);
         }
-            collection = "{\"items: {" + collection + "}}";
-
-        Log.d(TAG, "Value is: " + collection); //saves to log
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        //this is a call to the database!!!
-        myRef.setValue(collection);
 
     }
+
+    protected void updateDB(Item item){
+        String key = mDatabase.child("items").push().getKey();
+        mDatabase.child(key).setValue(item);
+
+    }
+
 }
