@@ -36,6 +36,7 @@ public class Database extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
+        data = (TextView) findViewById(R.id.dBReturn);
 
         // Write a message to the database
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -62,7 +63,7 @@ public class Database extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     protected void parseFile(View view) {
         // parse the "file"
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 5; i++)
         {
             Item item = new Item("Apple", "0" + i, "in the back", 12.00);
             updateDB(item);
@@ -73,6 +74,9 @@ public class Database extends AppCompatActivity {
     protected void updateDB(Item item){
         String key = mDatabase.child("items").push().getKey();
         mDatabase.child(key).setValue(item);
+        String Item = mDatabase.child(key).getKey();
+        data.setText(Item);
+
 
     }
 
