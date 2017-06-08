@@ -6,12 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.broulims.broulims.DatabaseView">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/products"
-        android:layout_width="378dp"
-        android:layout_height="360dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_width="366dp"
+        android:layout_height="386dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="117dp" />
 </android.support.constraint.ConstraintLayout>
