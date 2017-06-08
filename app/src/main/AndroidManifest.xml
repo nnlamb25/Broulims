@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Database" />
-        <activity android:name=".displayList"></activity>
+        <activity android:name=".displayList" />
+        <activity android:name=".DatabaseView"></activity>
     </application>
 
 </manifest>

@@ -68,7 +68,6 @@ public class Database extends AppCompatActivity {
             Item item = new Item("Apple", "0" + i, "in the back", 12.00);
             updateDB(item);
         }
-
     }
 
     protected void updateDB(Item item){
@@ -79,5 +78,4 @@ public class Database extends AppCompatActivity {
 
 
     }
-
 }
