@@ -4,4 +4,6 @@
     <string name="db_test">Database value will go here</string>
     <string name="search">Enter Item</string>
     <string name="button_search">Search</string>
+    <string name="broulims_logo">Broulims Logo</string>
+    <string name="gotodatabase">goToDatabase</string>
 </resources>
