@@ -2,8 +2,8 @@ package com.broulims.broulims;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,37 +21,28 @@ import java.util.ArrayList;
  **********************/
 public class DatabaseView extends AppCompatActivity {
 
-    private RecyclerView products;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    DatabaseReference dref;
-    ArrayList<Item> productList = new ArrayList<>();
 
-    /*
-    Decided RecyclerView was a better idea
     ListView products;
-    DatabaseReference dref;
+    DatabaseReference databaseReference;
     ArrayList<Item> productList = new ArrayList<>();
-    ArrayAdapter<ArrayList<Item>> adapter;
-    */
+    ArrayAdapter<Item> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_view);
 
-        products  = (RecyclerView) findViewById(R.id.products);
-        products.setHasFixedSize(true);
+        products  = (ListView) findViewById(R.id.products);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        layoutManager = new LinearLayoutManager(this);
-        products.setLayoutManager(layoutManager);
-
-        dref = FirebaseDatabase.getInstance().getReference();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, productList);
+        products.setAdapter(adapter);
 
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //adapter.clear();
+                adapter.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
@@ -68,8 +59,6 @@ public class DatabaseView extends AppCompatActivity {
                     productList.add(item);
 
                 }
-                adapter = new MyAdapter(productList);
-                products.setAdapter(adapter);
 
                 adapter.notifyDataSetChanged();
             }
@@ -80,6 +69,6 @@ public class DatabaseView extends AppCompatActivity {
             }
         };
 
-        dref.addValueEventListener(listener);
+        databaseReference.addValueEventListener(listener);
     }
 }

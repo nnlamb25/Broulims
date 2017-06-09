@@ -52,6 +52,14 @@ public class Item {
         price = 0;
     }
 
+    public String itemToString()
+    {
+        String itemString = this.name + "\n";
+
+        return itemString;
+    }
+
+
     private String location;
     private String name;
     private String code;
