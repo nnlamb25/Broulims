@@ -66,7 +66,7 @@ public class Database extends AppCompatActivity {
         for (int i = 0; i < 5; i++)
         {
             Item item = new Item("Apple", "0" + i, "in the back", 12.00);
-            updateDB(item);
+            //updateDB(item);
         }
     }
 
@@ -75,7 +75,6 @@ public class Database extends AppCompatActivity {
         mDatabase.child(key).setValue(item);
         String Item = mDatabase.child(key).getKey();
         data.setText(Item);
-
 
     }
 }
