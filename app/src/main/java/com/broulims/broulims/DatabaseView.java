@@ -2,8 +2,8 @@ package com.broulims.broulims;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,20 +12,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**********************
  * Had help from
  * https://stackoverflow.com/questions/43561708/android-list-view-with-firebase-subitem
  * and
  * https://developer.android.com/training/material/lists-cards.html
+ * and most recently
+ * https://stackoverflow.com/questions/3313347/how-to-update-simpleadapter-in-android
+ * ^^ This helped display sub items as well as items
  **********************/
 public class DatabaseView extends AppCompatActivity {
 
 
     ListView products;
     DatabaseReference databaseReference;
-    ArrayList<Item> productList = new ArrayList<>();
-    ArrayAdapter<Item> adapter;
+    List<Map<String, String>> productList = new ArrayList<>();
+    SimpleAdapter simpleAdapter;
 
 
     @Override
@@ -36,31 +42,28 @@ public class DatabaseView extends AppCompatActivity {
         products  = (ListView) findViewById(R.id.products);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, productList);
-        products.setAdapter(adapter);
+        simpleAdapter = new SimpleAdapter(this, productList,
+                android.R.layout.simple_list_item_2,
+                new String[] {"Name", "Price"},
+                new int[] {android.R.id.text1, android.R.id.text2});
+
+        products.setAdapter(simpleAdapter);
 
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                adapter.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
-                    // Had to cast this to a double, wasn't sure how to
-                    // do it in the constructors arguments.
-                    //
-                    // Never worked... fix price later
-                    // double price = (double) ds.child("price").getValue();
+                    //Price wasn't working, will fix it later
+                    Map<String, String> item = new HashMap<>(2);
+                    item.put("Name", ds.child("name").getValue().toString());
+                    item.put("Price", "$10.25 " + ds.child("location").getValue().toString());
 
-                    Item item = new Item(ds.child("name").getValue().toString(),
-                            ds.child("code").getValue().toString(),
-                            ds.child("location").getValue().toString(),
-                            10.25);
                     productList.add(item);
-
                 }
 
-                adapter.notifyDataSetChanged();
+                simpleAdapter.notifyDataSetChanged();
             }
 
             @Override

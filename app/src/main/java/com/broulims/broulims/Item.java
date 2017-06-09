@@ -52,9 +52,11 @@ public class Item {
         price = 0;
     }
 
-    public String itemToString()
+    public String getPriceAndLocation()
     {
-        String itemString = this.name + "\n";
+        String thePrice = Double.toString(this.price);
+
+        String itemString = this.location + " " + thePrice;
 
         return itemString;
     }
