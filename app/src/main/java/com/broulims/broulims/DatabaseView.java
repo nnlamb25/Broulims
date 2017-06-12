@@ -58,7 +58,7 @@ public class DatabaseView extends AppCompatActivity {
                     //Price wasn't working, will fix it later
                     Map<String, String> item = new HashMap<>(2);
                     item.put("Name", ds.child("ItemDescription").getValue().toString());
-                    item.put("Price", "$10.25 " + ds.child("Aisle").getValue().toString());
+                    item.put("Price", "Price: " + ds.child("BasePrice").getValue().toString() + " Aisle: " + ds.child("Aisle").getValue().toString());
 
                     productList.add(item);
                 }
