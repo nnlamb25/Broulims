@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="136dp"
         android:onClick="parseFile"
-        android:text="Save to Firebase"
+        android:text="@string/save_to_firebase"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

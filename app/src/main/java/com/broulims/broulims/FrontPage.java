@@ -22,4 +22,9 @@ public class FrontPage extends AppCompatActivity {
         Intent intent = new Intent(this, DatabaseView.class);
         startActivity(intent);
     }
+
+    public void showSL(View view) {
+        Intent intent = new Intent(this, ShoppingList.class);
+        startActivity(intent);
+    }
 }
