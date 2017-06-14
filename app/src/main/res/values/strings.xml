@@ -5,6 +5,11 @@
     <string name="search">Enter Item</string>
     <string name="button_search">Search</string>
     <string name="broulims_logo">Broulims Logo</string>
-    <string name="gotodatabase">goToDatabase</string>
-    <string name="title_activity_search_test">search_test</string>
+    <string name="view_database">View Database</string>
+    <string name="view_shopping_list">View Shopping List</string>
+    <string name="save_to_firebase">Save to Firebase</string>
+    <string name="title_activity_shopping_list">ShoppingList</string>
+    <string name="add_item">Add item</string>
+    <string name="what_item">What item would you like to add?</string>
+    <string name="enter_something">Enter Something</string>
 </resources>
