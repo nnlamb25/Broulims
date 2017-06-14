@@ -23,8 +23,9 @@ public class FrontPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showSL(View view) {
-        Intent intent = new Intent(this, ShoppingList.class);
+
+    public void theSearch(View view) {
+        Intent intent = new Intent(this, search_test.class);
         startActivity(intent);
     }
 }
