@@ -1,71 +1,176 @@
 package com.broulims.broulims;
 
+import android.support.v7.widget.RecyclerView;
+
 /**
  * Created by Daniel on 6/5/2017.
+ * Updated by Nathan to better match the firebase
  */
 
 public class Item {
-    public void setLocation(String location) {
-        this.location = location;
+
+    private Long Aisle;
+    private Long BaseMultiple;
+    private Long DepartmentNumber;
+    private Long Facing;
+    private Long Section;
+    private Long Size;
+    private String BasePrice;
+    private String BaseStart;
+    private String DepartmentName;
+    private String ItemDescription;
+    private String POSDescription;
+    private String Side;
+    private String UOM;
+
+
+    public Long getAisle() {
+        return Aisle;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAisle(Long aisle) {
+        Aisle = aisle;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public Long getBaseMultiple() {
+        return BaseMultiple;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setBaseMultiple(Long baseMultiple) {
+        BaseMultiple = baseMultiple;
     }
 
-    public String getLocation() {
-        return location;
+    public Long getDepartmentNumber() {
+        return DepartmentNumber;
     }
 
-    public String getName() {
-        return name;
+    public void setDepartmentNumber(Long departmentNumber) {
+        DepartmentNumber = departmentNumber;
     }
 
-    public String getCode() {
-        return code;
+    public Long getFacing() {
+        return Facing;
     }
 
-    public double getPrice() {
-        return price;
+    public void setFacing(Long facing) {
+        Facing = facing;
     }
 
-
-    public Item(String name, String code, String location, double price) {
-        this.location = location;
-        this.name = name;
-        this.code = code;
-        this.price = price;
+    public Long getSection() {
+        return Section;
     }
 
-    public Item() {
-        location = null;
-        name = null;
-        code = null;
-        price = 0;
+    public void setSection(Long section) {
+        Section = section;
     }
 
-    public String getPriceAndLocation()
+    public Long getSize() {
+        return Size;
+    }
+
+    public void setSize(Long size) {
+        Size = size;
+    }
+
+    public String getBasePrice() {
+        return BasePrice;
+    }
+
+    public void setBasePrice(String basePrice) {
+        BasePrice = basePrice;
+    }
+
+    public String getBaseStart() {
+        return BaseStart;
+    }
+
+    public void setBaseStart(String baseStart) {
+        BaseStart = baseStart;
+    }
+
+    public String getDepartmentName() {
+        return DepartmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        DepartmentName = departmentName;
+    }
+
+    public String getItemDescription() {
+        return ItemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        ItemDescription = itemDescription;
+    }
+
+    public String getPOSDescription() {
+        return POSDescription;
+    }
+
+    public void setPOSDescription(String POSDescription) {
+        this.POSDescription = POSDescription;
+    }
+
+    public String getSide() {
+        return Side;
+    }
+
+    public void setSide(String side) {
+        Side = side;
+    }
+
+    public String getUOM() {
+        return UOM;
+    }
+
+    public void setUOM(String UOM) {
+        this.UOM = UOM;
+    }
+
+    public Item(Long aisle,
+                Long baseMultiple,
+                Long departmentNumber,
+                Long facing,
+                Long section,
+                Long size,
+                String basePrice,
+                String baseStart,
+                String departmentName,
+                String itemDescription,
+                String POSDescription,
+                String side,
+                String UOM) {
+        Aisle = aisle;
+        BaseMultiple = baseMultiple;
+        DepartmentNumber = departmentNumber;
+        Facing = facing;
+        Section = section;
+        Size = size;
+        BasePrice = basePrice;
+        BaseStart = baseStart;
+        DepartmentName = departmentName;
+        ItemDescription = itemDescription;
+        this.POSDescription = POSDescription;
+        Side = side;
+        this.UOM = UOM;
+    }
+
+    public Item()
     {
-        String thePrice = Double.toString(this.price);
-
-        String itemString = this.location + " " + thePrice;
-
-        return itemString;
+        Aisle = 0l;
+        BaseMultiple = 0l;
+        DepartmentNumber = 0l;
+        Facing = 0l;
+        Section = 0l;
+        Size = 0l;
+        BasePrice = "";
+        BaseStart = "";
+        DepartmentName = "";
+        ItemDescription = "";
+        POSDescription = "";
+        Side = "";
+        UOM = "";
     }
-
-
-    private String location;
-    private String name;
-    private String code;
-    private double price;
-
 
 }

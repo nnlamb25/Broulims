@@ -2,8 +2,11 @@ package com.broulims.broulims;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.support.v7.widget.*;
+import android.support.v7.widget.DividerItemDecoration;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,9 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**********************
  * Had help from
@@ -28,50 +29,63 @@ import java.util.Map;
 public class DatabaseView extends AppCompatActivity {
 
 
-    ListView products;
+    RecyclerView products;
+    ItemsAdapter itemsAdapter;
     DatabaseReference databaseReference;
-    List<Map<String, String>> productList = new ArrayList<>();
-    SimpleAdapter simpleAdapter;
-
+    List<Item> productList = new ArrayList<>();
+    ProgressBar loadingSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_view);
 
-        products  = (ListView) findViewById(R.id.products);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
 
-        simpleAdapter = new SimpleAdapter(this, productList,
-                android.R.layout.simple_list_item_2,
-                new String[] {"Name", "Price"},
-                new int[] {android.R.id.text1, android.R.id.text2});
+        products = (RecyclerView) findViewById(R.id.products);
 
-        products.setAdapter(simpleAdapter);
+        RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getApplicationContext());
+        products.setLayoutManager(productLayoutManager);
+        products.setItemAnimator(new DefaultItemAnimator());
+        itemsAdapter = new ItemsAdapter(productList);
+        products.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
-        ValueEventListener listener = new ValueEventListener() {
+        // Found on https://stackoverflow.com/questions/24471109/recyclerview-onclick
+        products.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), products ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Toast.makeText(getBaseContext(), productList.get(position).getItemDescription() + " clicked", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        Toast.makeText(getBaseContext(), productList.get(position).getItemDescription() + " selected", Toast.LENGTH_SHORT).show();
+                    }
+                })
+        );
+
+        products.setAdapter(itemsAdapter);
+
+        loadingSpinner.setVisibility(View.VISIBLE);
+        Toast.makeText(getBaseContext(), "Updating Products", Toast.LENGTH_SHORT).show();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    //Price wasn't working, will fix it later
-                    Map<String, String> item = new HashMap<>(2);
-                    item.put("Name", ds.child("ItemDescription").getValue().toString());
-                    item.put("Price", "Price: " + ds.child("BasePrice").getValue().toString() + " Aisle: " + ds.child("Aisle").getValue().toString());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Item item = ds.getValue(Item.class);
 
                     productList.add(item);
                 }
-
-                simpleAdapter.notifyDataSetChanged();
+                //System.out.println("LIST SIZE: " + productList.size());
+                loadingSpinner.setVisibility(View.GONE);
+                products.setAdapter(itemsAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.toException());
             }
-        };
-
-        databaseReference.addValueEventListener(listener);
+        });
     }
 }
