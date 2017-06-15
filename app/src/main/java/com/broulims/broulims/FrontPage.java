@@ -31,7 +31,7 @@ public class FrontPage extends AppCompatActivity {
     }
 
     public void viewMap(View view) {
-        Intent intent = new Intent(this, IndoorDemoActivity.class);
-        startActivity(intent);
+
+        startActivity(new Intent(this, IndoorDemoActivity.class));
     }
 }

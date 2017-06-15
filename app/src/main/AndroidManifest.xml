@@ -3,6 +3,7 @@
     package="com.broulims.broulims">
 
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +20,15 @@
         </activity>
         <activity android:name=".displayList" />
         <activity android:name=".DatabaseView" />
-        <activity android:name=".search_test"></activity>
+        <activity android:name=".search_test"/>
+
+        <activity
+            android:name=".IndoorDemoActivity"
+            android:label="@string/indoor_demo_label"
+        />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value= "AIzaSyAb8OpWS-u84lxZNu4VEzHmYlnOBIiMNaY" />
     </application>
 </manifest>

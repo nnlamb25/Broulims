@@ -12,4 +12,6 @@
     <string name="add_item">Add item</string>
     <string name="what_item">What item would you like to add?</string>
     <string name="enter_something">Enter Something</string>
+    <string name="indoor_demo_description">Demonstrates how to use the Indoor API.</string>
+    <string name="indoor_demo_label">Indoor</string>
 </resources>
