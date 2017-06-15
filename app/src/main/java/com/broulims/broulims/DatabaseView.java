@@ -18,13 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**********************
+ * Created by Nathan on 6/14/2017
  * Had help from
- * https://stackoverflow.com/questions/43561708/android-list-view-with-firebase-subitem
- * and
- * https://developer.android.com/training/material/lists-cards.html
- * and most recently
- * https://stackoverflow.com/questions/3313347/how-to-update-simpleadapter-in-android
- * ^^ This helped display sub items as well as items
+ * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
  **********************/
 public class DatabaseView extends AppCompatActivity {
 
