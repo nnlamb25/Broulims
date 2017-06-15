@@ -29,4 +29,9 @@ public class FrontPage extends AppCompatActivity {
         Intent intent = new Intent(this, search_test.class);
         startActivity(intent);
     }
+
+    public void viewMap(View view) {
+        Intent intent = new Intent(this, IndoorDemoActivity.class);
+        startActivity(intent);
+    }
 }
