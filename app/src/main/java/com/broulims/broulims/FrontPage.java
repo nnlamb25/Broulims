@@ -8,6 +8,7 @@ import android.view.View;
 
 public class FrontPage extends AppCompatActivity {
     public static final String userString = "com.broulims.userString";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
