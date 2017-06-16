@@ -25,18 +25,29 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.IndoorBuilding;
 import com.google.android.gms.maps.model.IndoorLevel;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.List;
 
 /**
  * A demo activity showing how to use indoor.
  */
-public class IndoorDemoActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class IndoorDemoActivity extends AppCompatActivity
+        implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener {
 
     private GoogleMap mMap;
+    // Create a LatLngBounds
+
+    private static final CameraPosition BROULIMS_CAM = new CameraPosition.Builder()
+            .target(new LatLng(43.8272716,-111.7877352)).zoom(19.5f).bearing(0).tilt(0).build();
+
+    private static final LatLngBounds BROULIMS = new LatLngBounds(
+            new LatLng(43.827, -111.764), new LatLng(43.8275, -111.7645));
+
 
 
     @Override
@@ -52,7 +63,16 @@ public class IndoorDemoActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.8272716,-111.7877352), 19));
+
+        // Constrain the camera target to the Adelaide bounds.
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(BROULIMS_CAM));
+        mMap.setLatLngBoundsForCameraTarget(BROULIMS);
+
     }
 
+
+    @Override
+    public void onCameraIdle() {
+
+    }
 }
