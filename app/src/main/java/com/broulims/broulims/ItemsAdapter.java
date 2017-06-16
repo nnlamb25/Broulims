@@ -1,12 +1,17 @@
 package com.broulims.broulims;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by NathanLamb on 6/14/17.
@@ -53,5 +58,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     public int getItemCount() {
         //System.out.println("ITEM COUNT: " + products.size());
         return products.size();
+    }
+
+    public void setFilter(List<Item> newList) {
+        this.products = new ArrayList<>();
+        this.products.addAll(newList);
+        notifyDataSetChanged();
     }
 }

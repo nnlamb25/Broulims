@@ -19,6 +19,8 @@ public class FrontPage extends AppCompatActivity {
         Uri appLinkData = appLinkIntent.getData();
     }
 
+
+
     public void showDB(View view) {
         Intent intent = new Intent(this, DatabaseView.class);
         startActivity(intent);

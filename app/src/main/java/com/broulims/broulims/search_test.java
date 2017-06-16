@@ -1,13 +1,16 @@
 package com.broulims.broulims;
 
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.support.v7.widget.*;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.util.SortedListAdapterCallback;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,118 +19,104 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class search_test extends AppCompatActivity {
-    //push this
-
-
-
-    //String[] items;
-    //ArrayList<String> listItems;
-    ArrayAdapter<Map<String,String>> adapter;
-    //ListView listView;
-    EditText editText;
+/**********************
+ * Created by Nathan on 6/14/2017
+ * Had help from
+ * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
+ **********************/
+public class search_test extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
 
-    ListView products;
+    RecyclerView products;
+    ItemsAdapter itemsAdapter;
     DatabaseReference databaseReference;
-    List<Map<String, String>> productList = new ArrayList<>();
-    //SimpleAdapter simpleAdapter;
-
+    List<Item> productList = new ArrayList<>();
+    ProgressBar loadingSpinner;
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_test);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        //listView = (ListView)findViewById(R.id.listview);
+        setContentView(R.layout.activity_database_view);
 
-        products  = (ListView) findViewById(R.id.listview);
-        editText = (EditText)findViewById(R.id.txtitem);
-        /*simpleAdapter = new SimpleAdapter(this, productList,
-                android.R.layout.simple_list_item_2,
-                new String[] {"Name", "Price"},
-                new int[] {android.R.id.text1, android.R.id.text2});*/
-        initList();
-        products.setAdapter(adapter);
-        ValueEventListener listener = new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
+
+        products = (RecyclerView) findViewById(R.id.products);
+        //searchView = (SearchView) MenuItemCompat.getActionView();
+        //searchView.setOnQueryTextListener(this);
+
+        RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getApplicationContext());
+        products.setLayoutManager(productLayoutManager);
+        products.setItemAnimator(new DefaultItemAnimator());
+        itemsAdapter = new ItemsAdapter(productList);
+        products.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
+        // Found on https://stackoverflow.com/questions/24471109/recyclerview-onclick
+        products.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), products ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Toast.makeText(getBaseContext(), productList.get(position).getItemDescription() + " clicked", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        Toast.makeText(getBaseContext(), productList.get(position).getItemDescription() + " selected", Toast.LENGTH_SHORT).show();
+                    }
+                })
+        );
+
+        products.setAdapter(itemsAdapter);
+
+        loadingSpinner.setVisibility(View.VISIBLE);
+        Toast.makeText(getBaseContext(), "Updating Products", Toast.LENGTH_SHORT).show();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    //Price wasn't working, will fix it later
-                    Map<String, String> item = new HashMap<>(2);
-                    item.put("Name", ds.child("ItemDescription").getValue().toString());
-                    item.put("Price", "Price: " + ds.child("BasePrice").getValue().toString() + " Aisle: " + ds.child("Aisle").getValue().toString());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Item item = ds.getValue(Item.class);
 
                     productList.add(item);
                 }
-
-                adapter.notifyDataSetChanged();
+                //System.out.println("LIST SIZE: " + productList.size());
+                loadingSpinner.setVisibility(View.GONE);
+                products.setAdapter(itemsAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.toException());
             }
-        };
-
-        databaseReference.addValueEventListener(listener);
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().equals("")){
-                    initList();
-                }
-                else {
-                    searchItem(s.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
         });
     }
 
-    public void searchItem(String textToSearch) {
-        //for(String item:items)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
 
-        for(Map<String,String> myMap:productList) {
-            /*if(!item.contains(textToSearch)) {
-                productList.remove(item);
-            }*/
-            for(String key: myMap.keySet())
-            {
-                if(!key.contains(textToSearch)) {
-                    productList.remove(myMap);
-                }
-            }
-        }
 
-        adapter.notifyDataSetChanged();
+        return true;
     }
 
-    public void initList() {
-        //items = new String[] {"Canada", "China", "Japan", "USA"};
-        //listItems = new ArrayList<>(Arrays.asList(items));
-        adapter = new ArrayAdapter<>(this, R.layout.list_item, R.id.txtitem,productList);
-        /*simpleAdapter = new SimpleAdapter(this, R.layout.list_item,,
-                android.R.layout.simple_list_item_2,
-                new String[] {"Name", "Price"},
-                new int[] {android.R.id.text1, android.R.id.text2});*/
-        products.setAdapter(adapter);
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        newText = newText.toLowerCase();
+        ArrayList<Item> newList = new ArrayList<>();
+        for(Item i : productList) {
+            String name = i.getItemDescription().toLowerCase();
+            if(name.contains(newText))
+                newList.add(i);
+        }
+        itemsAdapter.setFilter(newList);
+        return true ;
     }
 }
