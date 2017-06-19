@@ -1,22 +1,22 @@
 package com.broulims.broulims;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by NathanLamb on 6/14/17.
  * Had help from
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
+ * and from the commments of the video
+ * https://www.youtube.com/watch?v=j9_hcfWVkIc
+ * ^^ comments explained how to implement onclick listener
  */
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
@@ -47,11 +47,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Item item = products.get(position);
         holder.name.setText(item.getItemDescription());
         holder.price.setText(item.getBasePrice().toString());
         holder.aisle.setText("Aisle " + item.getAisle().toString());
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(holder.itemView.getContext(), products.get(position).getItemDescription() + " clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -44,27 +44,12 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
         loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
 
         products = (RecyclerView) findViewById(R.id.products);
-        //searchView = (SearchView) MenuItemCompat.getActionView();
-        //searchView.setOnQueryTextListener(this);
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getApplicationContext());
         products.setLayoutManager(productLayoutManager);
         products.setItemAnimator(new DefaultItemAnimator());
         itemsAdapter = new ItemsAdapter(productList);
         products.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-
-        // Found on https://stackoverflow.com/questions/24471109/recyclerview-onclick
-        products.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), products ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        Toast.makeText(getBaseContext(), productList.get(position).getItemDescription() + " clicked", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override public void onLongItemClick(View view, int position) {
-                        Toast.makeText(getBaseContext(), productList.get(position).getItemDescription() + " selected", Toast.LENGTH_SHORT).show();
-                    }
-                })
-        );
 
         products.setAdapter(itemsAdapter);
 
@@ -98,7 +83,6 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
 
-
         return true;
     }
 
@@ -109,14 +93,16 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
 
     @Override
     public boolean onQueryTextChange(String newText) {
+
         newText = newText.toLowerCase();
-        ArrayList<Item> newList = new ArrayList<>();
+        final ArrayList<Item> newList = new ArrayList<>();
         for(Item i : productList) {
             String name = i.getItemDescription().toLowerCase();
             if(name.contains(newText))
                 newList.add(i);
         }
         itemsAdapter.setFilter(newList);
+
         return true ;
     }
 }
