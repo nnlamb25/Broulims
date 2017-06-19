@@ -36,4 +36,10 @@ public class FrontPage extends AppCompatActivity {
 
         startActivity(new Intent(this, IndoorDemoActivity.class));
     }
+
+    public void webView(View view)
+    {
+        startActivity(new Intent(this, WebsiteView.class));
+    }
+
 }

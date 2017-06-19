@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/product_search"
+          android:title="Find an Item">
+    </item>
+
+    <item android:id="@+id/product_map"
+          android:title="View Product Map">
+    </item>
+
+
+</menu>

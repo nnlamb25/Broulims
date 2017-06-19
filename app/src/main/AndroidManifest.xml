@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.broulims.broulims">
-
-
+          package="com.broulims.broulims">
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -13,22 +12,24 @@
         android:theme="@style/AppTheme">
         <activity android:name=".FrontPage">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".displayList" />
-        <activity android:name=".DatabaseView" />
+        <activity android:name=".displayList"/>
+        <activity android:name=".DatabaseView"/>
         <activity android:name=".search_test"/>
-
         <activity
             android:name=".IndoorDemoActivity"
-            android:label="@string/indoor_demo_label"
-        />
+            android:label="@string/indoor_demo_label"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value= "AIzaSyAb8OpWS-u84lxZNu4VEzHmYlnOBIiMNaY" />
+            android:value="AIzaSyAb8OpWS-u84lxZNu4VEzHmYlnOBIiMNaY"/>
+
+        <activity android:name=".WebsiteView">
+        </activity>
     </application>
+
 </manifest>

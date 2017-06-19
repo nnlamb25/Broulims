@@ -28,13 +28,13 @@ import java.util.List;
  **********************/
 public class search_test extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-
     RecyclerView products;
     ItemsAdapter itemsAdapter;
     DatabaseReference databaseReference;
     List<Item> productList = new ArrayList<>();
     ProgressBar loadingSpinner;
     SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
