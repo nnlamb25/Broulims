@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -17,15 +16,14 @@ import java.util.List;
 
 class ProductDatabase
 {
-    protected DatabaseReference databaseReference;
     protected List<Item> productList = new ArrayList<>();
 
     protected ProductDatabase()
     {
         productList = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        Log.i("Value Event Listener", "About to attach");
+        FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
@@ -43,6 +41,7 @@ class ProductDatabase
                 System.out.println(databaseError.toException());
             }
         });
+        Log.i("Value Event Listener", "Attached to database reference");
     }
 
     public boolean isDataReady()

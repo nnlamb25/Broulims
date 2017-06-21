@@ -53,7 +53,7 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
             {
                 while (!FrontPage.productDatabase.isDataReady())
                 {
-                    Log.i("SearchTest dataNotReady", "NOT READY");
+
                 }
 
                 handler.post(new Runnable() {
@@ -67,7 +67,7 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
                         itemsAdapter = new ItemsAdapter(productList);
                         products.setAdapter(itemsAdapter);
 
-                        Log.i("SearchTest dataNotReady", "READY");
+                        Log.i("Is Data Ready", "READY");
                     }
                 });
             }
