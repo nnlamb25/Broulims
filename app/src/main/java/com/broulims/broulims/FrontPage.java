@@ -8,6 +8,7 @@ import android.view.View;
 
 public class FrontPage extends AppCompatActivity {
     public static final String userString = "com.broulims.userString";
+    protected static ProductDatabase productDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,8 @@ public class FrontPage extends AppCompatActivity {
         Intent appLinkIntent = getIntent();
         String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
+
+        productDatabase = new ProductDatabase();
     }
 
 

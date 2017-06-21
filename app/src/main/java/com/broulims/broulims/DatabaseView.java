@@ -23,7 +23,8 @@ import java.util.List;
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
  **********************/
 
-public class DatabaseView extends AppCompatActivity {
+public class DatabaseView extends AppCompatActivity
+{
 
 
     RecyclerView products;
@@ -33,12 +34,13 @@ public class DatabaseView extends AppCompatActivity {
     ProgressBar loadingSpinner;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_view);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
+        //loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
 
         products = (RecyclerView) findViewById(R.id.products);
 
@@ -62,9 +64,6 @@ public class DatabaseView extends AppCompatActivity {
         );
 
         products.setAdapter(itemsAdapter);
-
-        loadingSpinner.setVisibility(View.VISIBLE);
-        Toast.makeText(getBaseContext(), "Updating Products", Toast.LENGTH_SHORT).show();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

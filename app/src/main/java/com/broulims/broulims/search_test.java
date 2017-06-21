@@ -1,22 +1,16 @@
 package com.broulims.broulims;
 
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.util.SortedListAdapterCallback;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,50 +24,56 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
 
     RecyclerView products;
     ItemsAdapter itemsAdapter;
-    DatabaseReference databaseReference;
     List<Item> productList = new ArrayList<>();
     ProgressBar loadingSpinner;
     SearchView searchView;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_view);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
-
-        products = (RecyclerView) findViewById(R.id.products);
+        handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        products = (RecyclerView) findViewById(R.id.products);
         products.setLayoutManager(productLayoutManager);
         products.setItemAnimator(new DefaultItemAnimator());
-        itemsAdapter = new ItemsAdapter(productList);
         products.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
-        products.setAdapter(itemsAdapter);
+        loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
 
         loadingSpinner.setVisibility(View.VISIBLE);
-        Toast.makeText(getBaseContext(), "Updating Products", Toast.LENGTH_SHORT).show();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        final Runnable runnable = new Runnable() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Item item = ds.getValue(Item.class);
-
-                    productList.add(item);
+            public void run()
+            {
+                while (!FrontPage.productDatabase.isDataReady())
+                {
+                    Log.i("SearchTest dataNotReady", "NOT READY");
                 }
-                //System.out.println("LIST SIZE: " + productList.size());
-                loadingSpinner.setVisibility(View.GONE);
-                products.setAdapter(itemsAdapter);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println(databaseError.toException());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        loadingSpinner.setVisibility(View.GONE);
+
+                        productList = FrontPage.productDatabase.productList;
+
+                        itemsAdapter = new ItemsAdapter(productList);
+                        products.setAdapter(itemsAdapter);
+
+                        Log.i("SearchTest dataNotReady", "READY");
+                    }
+                });
             }
-        });
+        };
+
+        new Thread(runnable).start();
     }
 
     @Override
