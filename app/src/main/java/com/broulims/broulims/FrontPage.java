@@ -23,13 +23,6 @@ public class FrontPage extends AppCompatActivity {
     }
 
 
-
-    public void showDB(View view) {
-        Intent intent = new Intent(this, DatabaseView.class);
-        startActivity(intent);
-    }
-
-
     public void theSearch(View view) {
         Intent intent = new Intent(this, search_test.class);
         startActivity(intent);

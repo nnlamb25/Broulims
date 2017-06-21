@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".displayList"/>
-        <activity android:name=".DatabaseView"/>
         <activity android:name=".search_test"/>
         <activity
             android:name=".IndoorDemoActivity"
