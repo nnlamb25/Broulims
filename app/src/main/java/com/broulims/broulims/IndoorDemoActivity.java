@@ -48,8 +48,6 @@ public class IndoorDemoActivity extends AppCompatActivity
     private static final LatLngBounds BROULIMS = new LatLngBounds(
             new LatLng(43.827, -111.764), new LatLng(43.8275, -111.7645));
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +63,9 @@ public class IndoorDemoActivity extends AppCompatActivity
         mMap = map;
 
         // Constrain the camera target to the Adelaide bounds.
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(BROULIMS_CAM));
         mMap.setLatLngBoundsForCameraTarget(BROULIMS);
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(BROULIMS_CAM));
+
 
     }
 
@@ -75,4 +74,6 @@ public class IndoorDemoActivity extends AppCompatActivity
     public void onCameraIdle() {
 
     }
+
+
 }
