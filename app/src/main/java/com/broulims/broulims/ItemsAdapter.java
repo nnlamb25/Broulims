@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by NathanLamb on 6/14/17.
+ * This allows the list view of items to be viewable in the recycle view
  * Had help from
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
  * and from the commments of the video
@@ -24,8 +25,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     private List<Item> products;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, price, aisle;
+        public TextView name, price, aisle; // These are what we want to see in the recycle view
 
+        // THe holder holds the 3 items which are in item_list_row.xml
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
@@ -34,6 +36,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         }
     }
 
+    // Constructor
     public ItemsAdapter(List<Item> products)
     {
         this.products = products;
@@ -47,6 +50,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         return new MyViewHolder(itemView);
     }
 
+    // Each row of the recycle view displays what is in the holder, and is clickable to show
+    // more information on the item clicked
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Item item = products.get(position);
@@ -66,6 +71,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         });
     }
 
+    // This is the number of items the database the phone has access to currently holds
     @Override
     public int getItemCount() {
         //System.out.println("ITEM COUNT: " + products.size());

@@ -1,10 +1,10 @@
 package com.broulims.broulims;
 
-import android.support.v7.widget.RecyclerView;
-
 /**
  * Created by Daniel on 6/5/2017.
  * Updated by Nathan to better match the firebase
+ *
+ * This holds all the data of each item that is contained in the database
  */
 
 public class Item {

@@ -24,8 +24,7 @@ public class FrontPage extends AppCompatActivity {
 
 
     public void theSearch(View view) {
-        Intent intent = new Intent(this, search_test.class);
-        startActivity(intent);
+        startActivity(new Intent(this, search_test.class));
     }
 
     public void viewMap(View view) {
