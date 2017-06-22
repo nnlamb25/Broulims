@@ -69,7 +69,7 @@ public class IndoorDemoActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.Bottombaritemone:
-                        Intent intent1 = new Intent(IndoorDemoActivity.this, FrontPage.class);
+                        Intent intent1 = new Intent(IndoorDemoActivity.this, WebsiteView.class);
                         startActivity(intent1);
                         break;
 

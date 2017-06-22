@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
@@ -45,13 +44,11 @@ public class WebsiteView extends AppCompatActivity {
                         break;
 
                     case R.id.Bottombaritemtwo:
-                        Intent intent2 = new Intent(WebsiteView.this, IndoorDemoActivity.class);
-                        startActivity(intent2);
+                        startActivity(new Intent(WebsiteView.this, IndoorDemoActivity.class));
                         break;
 
                     case R.id.Bottombaritemothree:
-                        Intent intent3 = new Intent(WebsiteView.this, search_test.class);
-                        startActivity(intent3);
+                        startActivity(new Intent(WebsiteView.this, search_test.class));
                         break;
 
                 }

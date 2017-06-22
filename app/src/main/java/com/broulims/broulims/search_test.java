@@ -47,7 +47,7 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.Bottombaritemone:
-                        Intent intent1 = new Intent(search_test.this, FrontPage.class);
+                        Intent intent1 = new Intent(search_test.this, WebsiteView.class);
                         startActivity(intent1);
                         break;
 
