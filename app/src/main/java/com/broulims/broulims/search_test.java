@@ -1,6 +1,9 @@
 package com.broulims.broulims;
 
+import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +37,35 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_view);
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.Bottombaritemone:
+                        Intent intent1 = new Intent(search_test.this, FrontPage.class);
+                        startActivity(intent1);
+                        break;
+
+                    case R.id.Bottombaritemtwo:
+                        Intent intent2 = new Intent(search_test.this, IndoorDemoActivity.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.Bottombaritemothree:
+
+                        break;
+
+                }
+
+
+                return false;
+            }
+        });
         handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -74,6 +106,8 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
         };
 
         new Thread(runnable).start();
+
+
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -19,17 +20,46 @@ import android.webkit.WebViewClient;
  * http://www.codebind.com/android-tutorials-and-examples/convert-website-android-application-using-android-studio/
  */
 
-public class WebsiteView extends AppCompatActivity
-{
+public class WebsiteView extends AppCompatActivity {
     private WebView webView;
     private BottomNavigationView bottomNavigationView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_website_view);
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+
+        Menu menu = bottomNavigationView.getMenu();
+
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.Bottombaritemone:
+
+                        break;
+
+                    case R.id.Bottombaritemtwo:
+                        Intent intent2 = new Intent(WebsiteView.this, IndoorDemoActivity.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.Bottombaritemothree:
+                        Intent intent3 = new Intent(WebsiteView.this, search_test.class);
+                        startActivity(intent3);
+                        break;
+
+                }
+
+
+                return false;
+            }
+        });
         webView = (WebView) findViewById(R.id.website_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -37,6 +67,7 @@ public class WebsiteView extends AppCompatActivity
         webView.setWebViewClient(new WebViewClient());
 
         // Sets up the bottom navigation bar
+        /*
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -72,5 +103,6 @@ public class WebsiteView extends AppCompatActivity
             webView.goBack();
         else
             super.onBackPressed();
+    }*/
     }
 }
