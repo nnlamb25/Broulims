@@ -52,7 +52,7 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
                         break;
 
                     case R.id.Bottombaritemtwo:
-                        Intent intent2 = new Intent(search_test.this, IndoorDemoActivity.class);
+                        Intent intent2 = new Intent(search_test.this, BroulimsMap.class);
                         startActivity(intent2);
                         break;
 

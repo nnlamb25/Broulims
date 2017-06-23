@@ -17,10 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".displayList"/>
+        <activity android:name=".ShoppingList"/>
         <activity android:name=".search_test"/>
         <activity
-            android:name=".IndoorDemoActivity"
+            android:name=".BroulimsMap"
             android:label="@string/indoor_demo_label"/>
 
         <meta-data

@@ -44,7 +44,7 @@ public class WebsiteView extends AppCompatActivity {
                         break;
 
                     case R.id.Bottombaritemtwo:
-                        startActivity(new Intent(WebsiteView.this, IndoorDemoActivity.class));
+                        startActivity(new Intent(WebsiteView.this, BroulimsMap.class));
                         break;
 
                     case R.id.Bottombaritemothree:

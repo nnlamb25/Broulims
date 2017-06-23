@@ -38,7 +38,7 @@ public class FrontPage extends AppCompatActivity {
 
     public void viewMap(View view) {
 
-        startActivity(new Intent(this, IndoorDemoActivity.class));
+        startActivity(new Intent(this, BroulimsMap.class));
     }
 
     public void webView(View view)
@@ -73,7 +73,7 @@ public class FrontPage extends AppCompatActivity {
                         break;
 
                     case R.id.Bottombaritemtwo:
-                        Intent intent2 = new Intent(FrontPage.this, IndoorDemoActivity.class);
+                        Intent intent2 = new Intent(FrontPage.this, BroulimsMap.class);
                         startActivity(intent2);
                         break;
 

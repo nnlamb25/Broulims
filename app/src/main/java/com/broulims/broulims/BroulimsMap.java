@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * A demo activity showing how to use indoor.
  */
-public class IndoorDemoActivity extends AppCompatActivity
+public class BroulimsMap extends AppCompatActivity
         implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener {
 
     private GoogleMap mMap;
@@ -69,7 +69,7 @@ public class IndoorDemoActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.Bottombaritemone:
-                        Intent intent1 = new Intent(IndoorDemoActivity.this, WebsiteView.class);
+                        Intent intent1 = new Intent(BroulimsMap.this, WebsiteView.class);
                         startActivity(intent1);
                         break;
 
@@ -78,7 +78,7 @@ public class IndoorDemoActivity extends AppCompatActivity
                         break;
 
                     case R.id.Bottombaritemothree:
-                        Intent intent3 = new Intent(IndoorDemoActivity.this, search_test.class);
+                        Intent intent3 = new Intent(BroulimsMap.this, search_test.class);
                         startActivity(intent3);
                         break;
 
