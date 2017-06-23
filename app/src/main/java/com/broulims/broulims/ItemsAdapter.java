@@ -65,8 +65,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             public void onClick(View v) {
                 Toast.makeText(holder.itemView.getContext(), products.get(position).getItemDescription() + " clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), BroulimsMap.class);
-                intent.putExtra("lat", 43.9272716);
-                intent.putExtra("long", -112.7877352);
+                intent.putExtra("long", 43.8272716);
+                intent.putExtra("lat", -111.7877352);
                 v.getContext().startActivity(intent);
 
             }
