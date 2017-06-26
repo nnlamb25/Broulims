@@ -1,5 +1,7 @@
 package com.broulims.broulims;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -38,6 +40,11 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
         setContentView(R.layout.activity_database_view);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        /*Intent intent = getIntent();
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+        }*/
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
@@ -114,6 +121,8 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
+        //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
 
