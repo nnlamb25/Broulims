@@ -59,6 +59,7 @@ public class FrontPage extends AppCompatActivity {
         //Uri appLinkData = appLinkIntent.getData();
         productDatabase = new ProductDatabase();
 
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -84,15 +85,27 @@ public class FrontPage extends AppCompatActivity {
 
                 }
 
-
                 return false;
             }
         });
         webView = (WebView) findViewById(R.id.website_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient()
+        {
+            @Override
+            public void onPageFinished(WebView view, String url)
+            {
+                findViewById(R.id.bottomNavView_Bar).setAlpha(0f);
+
+                findViewById(R.id.splash).animate().alpha(0f).setDuration(800);
+                findViewById(R.id.website_view).animate().alpha(1f).setDuration(800);
+
+                findViewById(R.id.bottomNavView_Bar).setVisibility(View.VISIBLE);
+                findViewById(R.id.bottomNavView_Bar).animate().alpha(1f).setDuration(800);
+            }
+        });
         webView.loadUrl("https://broulims.com/");
-        webView.setWebViewClient(new WebViewClient());
 
         // Sets up the bottom navigation bar
         /*
