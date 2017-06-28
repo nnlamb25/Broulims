@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+	<title>Mazemap JavaScript API example</title>
+
+    <link rel="stylesheet" href="https://api.mazemap.com/js/v1.2.10/mazemap.min.css">
+    <script src='https://api.mazemap.com/js/v1.2.10/mazemap.min.js'></script>
+    <script>
+        window.L = window.Maze;
+    </script>
+    <script src='Leaflet.ImageOverlay.Rotated.js'></script>
+
+	<style>
+
+		body {
+			margin: 0;
+		}
+
+		#mazemap-container {
+			width: 100vw;
+			height: 100vh;
+		}
+	</style>
+
+</head>
+<body>
+
+
+	<div id='mazemap-container'></div>
+
+	<script>
+
+	var map = Maze.map('mazemap-container');
+        
+    map.setView([43.8272716, -111.787740], 19);
+    map._layersMaxZoom=21;
+    map._layersMinZoom=19;    
+    
+    map.setMaxBounds(map.getBounds());
+    
+    var topleft =  Maze.latLng({ lat: 43.82761, lng: -111.78790 }),
+        topright = Maze.latLng({ lat: 43.82763, lng: -111.78685 }),
+        bottomleft = Maze.latLng({lat: 43.8270, lng: -111.78790 });
+        
+        
+    var popup = L.popup()
+    .setLatLng([43.8272716, -111.7877352])
+    .setContent("I am a standalone popup.")
+    .openOn(map);
+        
+    var overlay = Maze.imageOverlay.rotated("broulims.map.jpg", topleft, topright, bottomleft, {
+            opacity: 2
+        });
+        
+    overlay.addTo(map);
+    
+    
+
+	</script>
+
+
+</body>
+</html>
