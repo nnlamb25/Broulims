@@ -22,48 +22,35 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.IndoorBuilding;
-import com.google.android.gms.maps.model.IndoorLevel;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-
-import java.util.List;
 
 /**
  * This is taken from the GoogleMaps Api on how to use indoor maps
  * https://developers.google.com/maps/documentation/android-api/
  *
  */
-public class BroulimsMap extends AppCompatActivity
-        implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener {
+public class BroulimsMap extends AppCompatActivity {
 
-    private GoogleMap mMap;
-    // Create a LatLngBounds
-
-    private static final CameraPosition BROULIMS_CAM = new CameraPosition.Builder()
-            .target(new LatLng(43.8272716,-111.7877352)).zoom(19f).bearing(0).tilt(0).build();
-
-    private static final LatLngBounds BROULIMS = new LatLngBounds(
-            new LatLng(43.827, -111.764), new LatLng(43.8275, -111.7645));
-
+    private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.indoor_demo);
+        setContentView(R.layout.broulims_map);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
 
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -91,33 +78,13 @@ public class BroulimsMap extends AppCompatActivity
             }
         });
 
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        // Load the webpage for the map, yeah say goodbye to google maps
+        webView = (WebView) findViewById(R.id.map_view);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/broulimsmap.html");
     }
 
-    @Override
-    public void onMapReady(GoogleMap map) {
-        mMap = map;
-
-        // Sets the map bounds for Broulims
-        mMap.setLatLngBoundsForCameraTarget(BROULIMS);
-
-        double lng = getIntent().getDoubleExtra("long", 43.8272716);
-        double lat = getIntent().getDoubleExtra("lat", -111.7877352);
-
-        CameraPosition itemCam = new CameraPosition.Builder()
-                 .target(new LatLng(lng, lat)).zoom(19f).bearing(0).tilt(0).build();
-
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(BROULIMS_CAM));
-
-    }
-
-
-    @Override
-    public void onCameraIdle() {
-
-    }
 
 
 }
