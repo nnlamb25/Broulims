@@ -1,151 +1,118 @@
 package com.broulims.broulims;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.ActionBar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+
+import com.broulims.broulims.Fragment.BroulimsMap;
+import com.broulims.broulims.Fragment.WebsiteView;
+import com.broulims.broulims.Fragment.search_test;
+
+/**
+ * This is the first page that loads when opening the app.
+ * The front page loads the
+ */
 
 public class FrontPage extends AppCompatActivity {
-    /*
-    public static final String userString = "com.broulims.userString";
-    protected static ProductDatabase productDatabase;
+    public static ProductDatabase productDatabase;
+    private ViewPager viewPager;
+    BottomNavigationView bottomNavigationView;
+
+    // Fragments
+    WebsiteView websiteView;
+    BroulimsMap broulimsMap;
+    search_test searchTest;
+
+    MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_front_page);
-        // ATTENTION: This was auto-generated to handle app links.
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
-
-        productDatabase = new ProductDatabase();
-    }
-
-
-    public void theSearch(View view) {
-        startActivity(new Intent(this, search_test.class));
-    }
-
-    public void viewMap(View view) {
-
-        startActivity(new Intent(this, BroulimsMap.class));
-    }
-
-    public void webView(View view)
-    {
-        startActivity(new Intent(this, WebsiteView.class));
-    }
-    */
-
-    private WebView webView;
-    protected static ProductDatabase productDatabase;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_website_view);
+        setContentView(R.layout.front_page);
         Intent appLinkIntent = getIntent();
         //String appLinkAction = appLinkIntent.getAction();
         //Uri appLinkData = appLinkIntent.getData();
         productDatabase = new ProductDatabase();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.Bottombaritemone:
-
-                        break;
-
-                    case R.id.Bottombaritemtwo:
-                        Intent intent2 = new Intent(FrontPage.this, BroulimsMap.class);
-                        startActivity(intent2);
-                        break;
-
-                    case R.id.Bottombaritemothree:
-                        Intent intent3 = new Intent(FrontPage.this, search_test.class);
-                        startActivity(intent3);
-                        break;
-
-                }
-
-                return false;
-            }
-        });
-        webView = (WebView) findViewById(R.id.website_view);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient()
-        {
-            @Override
-            public void onPageFinished(WebView view, String url)
-            {
-                findViewById(R.id.bottomNavView_Bar).setAlpha(0f);
-
-                findViewById(R.id.splash).animate().alpha(0f).setDuration(800);
-                findViewById(R.id.website_view).animate().alpha(1f).setDuration(800);
-
-                findViewById(R.id.bottomNavView_Bar).setVisibility(View.VISIBLE);
-                findViewById(R.id.bottomNavView_Bar).animate().alpha(1f).setDuration(800);
-            }
-        });
-        webView.loadUrl("https://broulims.com/");
-
-        // Sets up the bottom navigation bar
-        /*
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item)
             {
                 switch (item.getItemId())
                 {
-                    case R.id.home: // The user presses the home page button
-                        if (webView.getUrl().toString() != "https://broulims.com/")
-                        {
-                            Log.i("URL", webView.getUrl().toString());
-                            Log.i("URL == broulims", String.valueOf((webView.getUrl().toString() != webView.getOriginalUrl().toString())));
-                            webView.loadUrl("https://broulims.com/");
-                        }
+                    case R.id.Bottombaritemone:
+                        viewPager.setCurrentItem(0);
                         break;
-                    case R.id.list: // The user presses the list button
-                        startActivity(new Intent(getApplicationContext(), IndoorDemoActivity.class));
+                    case R.id.Bottombaritemtwo:
+                        viewPager.setCurrentItem(1);
                         break;
-                    case R.id.search: // The user presses the search button
-                        startActivity(new Intent(getApplicationContext(), search_test.class));
+                    case R.id.Bottombaritemothree:
+                        viewPager.setCurrentItem(2);
+                        break;
                 }
+                return false;
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
+                // do nothing
+            }
 
+            @Override
+            public void onPageSelected(int position)
+            {
+                if (menuItem != null) {
+                    menuItem.setChecked(false);
+                }
+                else
+                {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                Log.d("page", "onPageSelected: "+position);
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                menuItem = bottomNavigationView.getMenu().getItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+                // do nothing
+            }
+        });
+
+        // Disable ViewPager Swipe
+        viewPager.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
                 return true;
             }
         });
+
+        setupViewPager(viewPager);
     }
 
-    // The back button at the bottom is overwritten so it works as a back button on the web page
-    @Override
-    public void onBackPressed()
-    {
-        if (webView.canGoBack())
-            webView.goBack();
-        else
-            super.onBackPressed();
-    }
-    */
-
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        websiteView=new WebsiteView();
+        broulimsMap=new BroulimsMap();
+        searchTest=new search_test();
+        adapter.addFragment(websiteView);
+        adapter.addFragment(broulimsMap);
+        adapter.addFragment(searchTest);
+        viewPager.setAdapter(adapter);
     }
 }

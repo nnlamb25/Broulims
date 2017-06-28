@@ -6,14 +6,6 @@ android:layout_width="match_parent"
 android:layout_height="match_parent">
 
 
-    <ImageView
-        android:id="@+id/splash"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_x="58dp"
-        android:layout_y="41dp"
-        app:srcCompat="@drawable/broulims_splash"/>
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -22,31 +14,11 @@ android:layout_height="match_parent">
             android:id="@+id/website_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/relLayoutBotBar"
             android:alpha="0"
             >
 
         </WebView>
 
-
-        <RelativeLayout
-            android:id="@+id/relLayoutBotBar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true">
-
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottomNavView_Bar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/border"
-                android:visibility="gone"
-                app:menu="@menu/menu_icon">
-
-            </android.support.design.widget.BottomNavigationView>
-
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.broulims.broulims.Fragment.BroulimsMap;
+
 import java.util.ArrayList;
 import java.util.List;
 

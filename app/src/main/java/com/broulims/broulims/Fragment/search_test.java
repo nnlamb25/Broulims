@@ -1,21 +1,28 @@
-package com.broulims.broulims;
+package com.broulims.broulims.Fragment;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.broulims.broulims.FrontPage;
+import com.broulims.broulims.Item;
+import com.broulims.broulims.ItemsAdapter;
+import com.broulims.broulims.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +32,7 @@ import java.util.List;
  * Had help from
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
  **********************/
-public class search_test extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class search_test extends Fragment implements SearchView.OnQueryTextListener {
 
     RecyclerView products;
     ItemsAdapter itemsAdapter;
@@ -35,54 +42,21 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
     Handler handler;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database_view);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-        /*Intent intent = getIntent();
-        if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+        View view = inflater.inflate(R.layout.activity_database_view, container, false);
 
-        }*/
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.Bottombaritemone:
-                        Intent intent1 = new Intent(search_test.this, WebsiteView.class);
-                        startActivity(intent1);
-                        break;
-
-                    case R.id.Bottombaritemtwo:
-                        Intent intent2 = new Intent(search_test.this, BroulimsMap.class);
-                        startActivity(intent2);
-                        break;
-
-                    case R.id.Bottombaritemothree:
-
-                        break;
-
-                }
-
-
-                return false;
-            }
-        });
         handler = new Handler();
 
-        RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
 
-        products = (RecyclerView) findViewById(R.id.products);
+        products = (RecyclerView) view.findViewById(R.id.products);
         products.setLayoutManager(productLayoutManager);
         products.setItemAnimator(new DefaultItemAnimator());
-        products.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        products.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
 
-        loadingSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
+        loadingSpinner = (ProgressBar) view.findViewById(R.id.progressSpinner);
 
         loadingSpinner.setVisibility(View.VISIBLE);
 
@@ -112,21 +86,21 @@ public class search_test extends AppCompatActivity implements SearchView.OnQuery
             }
         };
 
+
         new Thread(runnable).start();
 
-
+        // Inflate the layout for this fragment
+        return view;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
-
-        return true;
     }
 
     @Override

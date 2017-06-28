@@ -25,36 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/relLayoutBotBar">
-
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/map"
+            <WebView
+                android:id="@+id/map_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.google.android.gms.maps.SupportMapFragment" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relLayoutBotBar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true">
-
-            <android.support.design.widget.BottomNavigationView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/bottomNavView_Bar"
-                android:background="@drawable/border"
-                app:menu="@menu/menu_icon">
-
-            </android.support.design.widget.BottomNavigationView>
-
-
-        </RelativeLayout>
+                android:layout_height="match_parent"/>
 
     </RelativeLayout>
 

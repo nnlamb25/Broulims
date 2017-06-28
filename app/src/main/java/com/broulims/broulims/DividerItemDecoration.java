@@ -1,8 +1,4 @@
 package com.broulims.broulims;
-
-/**
- * Created by NathanLamb on 6/14/17.
- */
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;

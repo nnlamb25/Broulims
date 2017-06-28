@@ -16,9 +16,9 @@ import java.util.List;
  * a value is added or taken away.
  */
 
-class ProductDatabase
+public class ProductDatabase
 {
-    protected List<Item> productList = new ArrayList<>();
+    public List<Item> productList = new ArrayList<>();
 
     // Constructor
     protected ProductDatabase()

@@ -17,26 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ShoppingList"/>
-        <activity android:name=".search_test"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
-        <activity
-            android:name=".BroulimsMap"
-            android:label="@string/indoor_demo_label"/>
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAb8OpWS-u84lxZNu4VEzHmYlnOBIiMNaY"/>
-
-        <activity android:name=".WebsiteView">
-        </activity>
     </application>
 
 </manifest>
