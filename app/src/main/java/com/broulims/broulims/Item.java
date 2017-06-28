@@ -1,12 +1,43 @@
 package com.broulims.broulims;
 
 /**
- * Created by Daniel on 6/5/2017.
- * Updated by Nathan to better match the firebase
+ * This holds all the data of each item that is contained in the database and
+ * contains gettters and setters for all of the member variables taken from
+ * the database.
+ * <p></p>
+ * Private member Variables-
+ * <br></br>
+ * <br></br>
+ * Aisle: Which Aisle number the Item is on
+ * <br></br>
+ * BaseMultiple:
+ * <br></br>
+ * DepartmentNumber: Which Department number the Item is in. More general than Aisle
+ * <br></br>
+ * Facing: How many items are on the shelf
+ * <br></br>
+ * Section: Which Section of the store the Item is in
+ * <br></br>
+ * Size: How large a single item is
+ * <br></br>
+ * BasePrice: The usual price of the Item
+ * <br></br>
+ * BaseStart: The current price of the Item (in case of sales)
+ * <br></br>
+ * DepartmentName: Name of the department the Item is in
+ * <br></br>
+ * ItemDescription: Description of the Item
+ * <br></br>
+ * POSDescription: The "name" of the item, as it would appear on a register while buying it
+ * <br></br>
+ * Side: Which side of the aisle it is on
+ * <br></br>
+ * UOM: Unit Of Measurement–what unit the item is measured with e.g. most food is sold in ounces
+ * <br></br>
  *
- * This holds all the data of each item that is contained in the database
+ * @author Daniel on 6/5/2017.
+ * @author Nathan to better match the firebase
  */
-
 public class Item {
 
     private Long Aisle;
@@ -128,6 +159,12 @@ public class Item {
         this.UOM = UOM;
     }
 
+    /**
+     * @author Daniel on 6/5/2017.
+     * @author Nathan to better match the firebase
+     *
+     * Default Constructor for Item class
+     */
     public Item(Long aisle,
                 Long baseMultiple,
                 Long departmentNumber,
@@ -156,6 +193,12 @@ public class Item {
         this.UOM = UOM;
     }
 
+    /**
+     * @author Daniel on 6/5/2017.
+     * @author Nathan to better match the firebase
+     *
+     * Non-default Constructor for Item class
+     */
     public Item()
     {
         Aisle = 0l;
