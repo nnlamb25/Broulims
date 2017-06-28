@@ -13,11 +13,12 @@ import android.view.View;
 
 import com.broulims.broulims.Fragment.BroulimsMap;
 import com.broulims.broulims.Fragment.WebsiteView;
-import com.broulims.broulims.Fragment.search_test;
+import com.broulims.broulims.Fragment.SearchItems;
 
 /**
- * This is the first page that loads when opening the app.
- * The front page loads the
+ * This is the primary page which holds all the fragments.
+ * This android studio program on github helped a ton
+ * https://github.com/jaisonfdo/BottomNavigation
  */
 
 public class FrontPage extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class FrontPage extends AppCompatActivity {
     // Fragments
     WebsiteView websiteView;
     BroulimsMap broulimsMap;
-    search_test searchTest;
+    SearchItems searchItems;
 
     MenuItem menuItem;
 
@@ -36,12 +37,16 @@ public class FrontPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.front_page);
+
         Intent appLinkIntent = getIntent();
         //String appLinkAction = appLinkIntent.getAction();
         //Uri appLinkData = appLinkIntent.getData();
+
         productDatabase = new ProductDatabase();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        viewPager.setOffscreenPageLimit(2);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -109,10 +114,10 @@ public class FrontPage extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         websiteView=new WebsiteView();
         broulimsMap=new BroulimsMap();
-        searchTest=new search_test();
+        searchItems=new SearchItems();
         adapter.addFragment(websiteView);
         adapter.addFragment(broulimsMap);
-        adapter.addFragment(searchTest);
+        adapter.addFragment(searchItems);
         viewPager.setAdapter(adapter);
     }
 }

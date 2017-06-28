@@ -32,7 +32,7 @@ import java.util.List;
  * Had help from
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
  **********************/
-public class search_test extends Fragment implements SearchView.OnQueryTextListener {
+public class SearchItems extends Fragment implements SearchView.OnQueryTextListener {
 
     RecyclerView products;
     ItemsAdapter itemsAdapter;
