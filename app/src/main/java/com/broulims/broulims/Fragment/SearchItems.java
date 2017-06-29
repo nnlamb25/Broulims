@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,9 +43,15 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
     Handler handler;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         View view = inflater.inflate(R.layout.activity_database_view, container, false);
 
         handler = new Handler();
@@ -59,6 +66,19 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
         loadingSpinner = (ProgressBar) view.findViewById(R.id.progressSpinner);
 
         loadingSpinner.setVisibility(View.VISIBLE);
+
+
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         final Runnable runnable = new Runnable() {
             @Override
@@ -89,8 +109,15 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
 
         new Thread(runnable).start();
 
-        // Inflate the layout for this fragment
-        return view;
+
+    }
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_search).setVisible(true);
+        super.onPrepareOptionsMenu(menu);
+
     }
 
     @Override
@@ -101,7 +128,25 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
 
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
+
+
+        MenuItemCompat.setOnActionExpandListener(menuItem,
+                new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                    // Do something when collapsed
+                        itemsAdapter.setFilter(productList);
+                        return true; // Return true to collapse action view
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+// Do something when expanded
+                        return true; // Return true to expand action view
+                    }
+                });
     }
+
 
     @Override
     public boolean onQueryTextSubmit(String query) {

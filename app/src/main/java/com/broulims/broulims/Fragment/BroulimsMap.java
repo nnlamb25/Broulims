@@ -36,10 +36,17 @@ public class BroulimsMap extends Fragment
 
     private WebView webView;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         View view = inflater.inflate(R.layout.broulims_map, container, false);
 
         // Load the webpage for the map, yeah say goodbye to google maps
@@ -48,7 +55,6 @@ public class BroulimsMap extends Fragment
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("file:///android_asset/broulimsmap.html");
-
         // Inflate the layout for this fragment
         return view;
     }

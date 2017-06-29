@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -36,6 +37,7 @@ public class FrontPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.front_page);
 
         Intent appLinkIntent = getIntent();
@@ -56,12 +58,15 @@ public class FrontPage extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.Bottombaritemone:
+                        getSupportActionBar().hide();
                         viewPager.setCurrentItem(0);
                         break;
                     case R.id.Bottombaritemtwo:
+                        getSupportActionBar().hide();
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.Bottombaritemothree:
+                        getSupportActionBar().show();
                         viewPager.setCurrentItem(2);
                         break;
                 }

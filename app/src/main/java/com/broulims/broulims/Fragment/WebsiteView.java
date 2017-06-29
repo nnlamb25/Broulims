@@ -30,9 +30,16 @@ public class WebsiteView extends Fragment
     private WebView webView;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        super.onCreate(savedInstanceState);
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         View view = inflater.inflate(R.layout.activity_website_view, container, false);
         webView = (WebView) view.findViewById(R.id.website_view);
         WebSettings webSettings = webView.getSettings();
@@ -41,6 +48,7 @@ public class WebsiteView extends Fragment
         webView.setWebViewClient(new WebViewClient());
 
         webView.loadUrl("https://broulims.com/");
+        //getActivity().getActionBar().hide();
         // Inflate the layout for this fragment
         return view;
     }
