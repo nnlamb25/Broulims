@@ -28,11 +28,19 @@ import com.broulims.broulims.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**********************
- * Created by Nathan on 6/14/2017
- * Had help from
+/**
+ * This is the search activity for the program. The program allows the user
+ * to use a text box to input a search query. The function will search through
+ * the data base for the query and then display any matching items.
+ * <br></br>
+ * There is also a bottom navigation bar which you can use to
+ * start our other main activities (such as the map view or list view)
+ * <p></p>
+ * Had help from:
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
- **********************/
+ *
+ * @author Nathan Lamb on 6/14/2017
+ */
 public class SearchItems extends Fragment implements SearchView.OnQueryTextListener {
 
     RecyclerView products;

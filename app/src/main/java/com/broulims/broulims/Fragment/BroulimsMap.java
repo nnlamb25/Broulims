@@ -27,9 +27,21 @@ import android.webkit.WebViewClient;
 import com.broulims.broulims.R;
 
 /**
- * This is taken from the GoogleMaps Api on how to use indoor maps
+ * This is the map activity for the app. It is accessible from the
+ * bottom navigation and, when opened, goes to a google maps view
+ * showing the store map. It will eventually have additional user
+ * interface allowing the user to press a section of the map to
+ * receive information about it, and the search function will
+ * open the map and display a pop-up to show the location of an
+ * item.
+ * <br></br>
+ * There is also a bottom navigation bar which you can use to
+ * start our other main activities (such as the map view or list view)
+ * <p></p>
+ * Had help from:
  * https://developers.google.com/maps/documentation/android-api/
  *
+ * @author Adam
  */
 public class BroulimsMap extends Fragment
 {

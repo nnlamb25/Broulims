@@ -11,14 +11,22 @@ import android.webkit.WebViewClient;
 
 import com.broulims.broulims.R;
 
-/**
- * Made by Nathan
- * This activity is a web view that views Broulim's website.  There's a bottom navigation bar which you can use to
- * start our other main activites (such as the map view or list view)
- * Had help from
- * http://www.codebind.com/android-tutorials-and-examples/convert-website-android-application-using-android-studio/
- */
 
+/**
+ * This is the Website view for the app. It is accessible through the
+ * bottom navigation and when opened, it brings up a splash screen
+ * until the website loads. The site opens to "https://broulims.com/"
+ * and allows the user to navigate it as if they were in a standard
+ * web browser.
+ * <br></br>
+ * There is also a bottom navigation bar which you can use to
+ * start our other main activities (such as the map view or list view)
+ * <p></p>
+ * Had help from:
+ * http://www.codebind.com/android-tutorials-and-examples/convert-website-android-application-using-android-studio/
+ *
+ * @author Nathan Lamb
+ */
 public class WebsiteView extends Fragment
 {
     private WebView webView;
