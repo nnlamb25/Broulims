@@ -39,8 +39,8 @@ public class FrontPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.front_page);
+        getSupportActionBar().hide();
 
         Intent appLinkIntent = getIntent();
         //String appLinkAction = appLinkIntent.getAction();
@@ -53,7 +53,8 @@ public class FrontPage extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
 
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable()
+        {
             @Override
             public void run()
             {

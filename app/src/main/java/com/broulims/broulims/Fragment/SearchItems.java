@@ -53,14 +53,12 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         View view = inflater.inflate(R.layout.activity_database_view, container, false);
 
         productDatabase = new ProductDatabase();

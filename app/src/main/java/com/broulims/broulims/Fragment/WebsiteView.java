@@ -2,6 +2,7 @@ package com.broulims.broulims.Fragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,6 @@ public class WebsiteView extends Fragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
     }
 
@@ -41,7 +41,6 @@ public class WebsiteView extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         View view = inflater.inflate(R.layout.activity_website_view, container, false);
         webView = (WebView) view.findViewById(R.id.website_view);
         WebSettings webSettings = webView.getSettings();

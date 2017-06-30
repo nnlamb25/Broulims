@@ -17,6 +17,7 @@ package com.broulims.broulims.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,14 +52,12 @@ public class BroulimsMap extends Fragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         View view = inflater.inflate(R.layout.broulims_map, container, false);
 
         // Load the webpage for the map, yeah say goodbye to google maps
