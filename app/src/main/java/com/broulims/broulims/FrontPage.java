@@ -1,16 +1,17 @@
 package com.broulims.broulims;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.broulims.broulims.Fragment.BroulimsMap;
 import com.broulims.broulims.Fragment.WebsiteView;
@@ -23,7 +24,6 @@ import com.broulims.broulims.Fragment.SearchItems;
  */
 
 public class FrontPage extends AppCompatActivity {
-    public static ProductDatabase productDatabase;
     private ViewPager viewPager;
     BottomNavigationView bottomNavigationView;
 
@@ -33,6 +33,8 @@ public class FrontPage extends AppCompatActivity {
     SearchItems searchItems;
 
     MenuItem menuItem;
+    ImageView splashScreen;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +46,23 @@ public class FrontPage extends AppCompatActivity {
         //String appLinkAction = appLinkIntent.getAction();
         //Uri appLinkData = appLinkIntent.getData();
 
-        productDatabase = new ProductDatabase();
-
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-
+        splashScreen = (ImageView) findViewById(R.id.SplashScreen);
         viewPager.setOffscreenPageLimit(2);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                splashScreen.animate().alpha(0f).setDuration(1000);
+                viewPager.animate().alpha(1f).setDuration(1000);
+                bottomNavigationView.animate().alpha(1f).setDuration(1000);
+            }
+        }, 2000);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item)

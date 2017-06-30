@@ -21,7 +21,7 @@ public class ProductDatabase
     public List<Item> productList = new ArrayList<>();
 
     // Constructor
-    protected ProductDatabase()
+    public ProductDatabase()
     {
         productList = new ArrayList<>();
 
@@ -57,10 +57,11 @@ public class ProductDatabase
     {
         if (productList.size() == 0)
         {
-            Log.i("Data Ready", String.valueOf(productList.size()));
             return false;
         }
         else
+        {
             return true;
+        }
     }
 }

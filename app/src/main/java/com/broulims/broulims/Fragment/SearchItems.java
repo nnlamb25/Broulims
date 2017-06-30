@@ -20,9 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.broulims.broulims.FrontPage;
 import com.broulims.broulims.Item;
 import com.broulims.broulims.ItemsAdapter;
+import com.broulims.broulims.ProductDatabase;
 import com.broulims.broulims.R;
 
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
     ProgressBar loadingSpinner;
     SearchView searchView;
     Handler handler;
+    ProductDatabase productDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         View view = inflater.inflate(R.layout.activity_database_view, container, false);
 
+        productDatabase = new ProductDatabase();
         handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
@@ -84,7 +86,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
             @Override
             public void run()
             {
-                while (!FrontPage.productDatabase.isDataReady())
+                while (!productDatabase.isDataReady())
                 {
 
                 }
@@ -95,7 +97,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
                     {
                         loadingSpinner.setVisibility(View.GONE);
 
-                        productList = FrontPage.productDatabase.productList;
+                        productList = productDatabase.productList;
 
                         itemsAdapter = new ItemsAdapter(productList);
                         products.setAdapter(itemsAdapter);
