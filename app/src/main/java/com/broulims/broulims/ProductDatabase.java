@@ -12,9 +12,13 @@ import java.util.List;
 
 
 /**
- * Created by NathanLamb on 6/20/17.
- * This holds the product list array from the database, and updates the database each time
- * a value is added or taken away.
+ * This class holds the product list array from
+ * the database we get from broulims via the
+ * firebase database. The class also update
+ * the database each time a value is added
+ * or taken away.
+ *
+ * @author NathanLamb on 6/20/17.
  */
 
 public class ProductDatabase

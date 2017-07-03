@@ -14,15 +14,17 @@ import java.util.List;
 import static com.broulims.broulims.Fragment.BroulimsMap.addToList;
 
 /**
- * Created by NathanLamb on 6/14/17.
  * This allows the list view of items to be viewable in the recycle view
+ * <p></p>
  * Had help from
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
- * and from the commments of the video
+ * <br>
+ * and from the comments of the video
  * https://www.youtube.com/watch?v=j9_hcfWVkIc
  * ^^ comments explained how to implement onclick listener
+ *
+ * @author NathanLamb on 6/14/17
  */
-
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
     private List<Item> products;
 

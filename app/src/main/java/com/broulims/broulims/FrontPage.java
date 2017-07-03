@@ -18,7 +18,9 @@ import com.broulims.broulims.Fragment.WebsiteView;
 import com.broulims.broulims.Fragment.SearchItems;
 
 /**
- * This is the primary page which holds all the fragments.
+ * This is the front page of the app, which contains
+ * the bottom navigation and holds all the fragments.
+ * <br></br>
  * This android studio program on github helped a ton
  * https://github.com/jaisonfdo/BottomNavigation
  */
