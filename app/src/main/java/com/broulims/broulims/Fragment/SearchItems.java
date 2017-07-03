@@ -167,10 +167,4 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
 
         return true ;
     }
-
-    public void setFrontPageContext(FrontPage frontPageContext)
-    {
-        frontPage = frontPageContext;
-    }
-
 }

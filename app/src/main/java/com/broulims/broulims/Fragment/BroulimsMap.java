@@ -18,6 +18,7 @@ package com.broulims.broulims.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.broulims.broulims.Item;
 import com.broulims.broulims.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the map activity for the app. It is accessible from the
@@ -46,7 +51,9 @@ import com.broulims.broulims.R;
  */
 public class BroulimsMap extends Fragment
 {
+
     private WebView webView;
+    private static List<Item> products;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,7 @@ public class BroulimsMap extends Fragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.broulims_map, container, false);
 
+        products = new ArrayList<>();
         // Load the webpage for the map, yeah say goodbye to google maps
         webView = (WebView) view.findViewById(R.id.map_view);
         WebSettings webSettings = webView.getSettings();
@@ -66,5 +74,10 @@ public class BroulimsMap extends Fragment
         webView.loadUrl("file:///android_asset/broulimsmap.html");
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public static void addToList(Item item){
+        products.add(item);
+        Log.i("Added", item.getItemDescription());
     }
 }
