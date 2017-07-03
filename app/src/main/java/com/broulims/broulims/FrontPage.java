@@ -24,7 +24,7 @@ import com.broulims.broulims.Fragment.SearchItems;
  */
 
 public class FrontPage extends AppCompatActivity {
-    protected static ViewPager viewPager;
+    protected static CustomViewPager viewPager;
     BottomNavigationView bottomNavigationView;
 
     // Fragments
@@ -45,7 +45,7 @@ public class FrontPage extends AppCompatActivity {
         //String appLinkAction = appLinkIntent.getAction();
         //Uri appLinkData = appLinkIntent.getData();
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (CustomViewPager) findViewById(R.id.viewpager);
         splashScreen = (ImageView) findViewById(R.id.SplashScreen);
         viewPager.setOffscreenPageLimit(2);
 
