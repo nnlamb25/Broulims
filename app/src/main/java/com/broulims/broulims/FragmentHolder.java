@@ -1,6 +1,5 @@
 package com.broulims.broulims;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,7 +24,7 @@ import com.broulims.broulims.Fragment.SearchItems;
  * https://github.com/jaisonfdo/BottomNavigation
  */
 
-public class FrontPage extends AppCompatActivity {
+public class FragmentHolder extends AppCompatActivity {
     protected static CustomViewPager viewPager;
     BottomNavigationView bottomNavigationView;
 
@@ -40,12 +39,14 @@ public class FrontPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.front_page);
+        setContentView(R.layout.fragment_holder);
         getSupportActionBar().hide();
 
+        /*
         Intent appLinkIntent = getIntent();
-        //String appLinkAction = appLinkIntent.getAction();
-        //Uri appLinkData = appLinkIntent.getData();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
+        */
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager);
         splashScreen = (ImageView) findViewById(R.id.SplashScreen);

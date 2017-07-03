@@ -24,28 +24,19 @@ import java.util.List;
 public class ProductDatabase
 {
     public List<Item> productList = new ArrayList<>();
-    public static FirebaseDatabase mDatabase;
+    private boolean dataReady;
 
-    public static FirebaseDatabase getDatabase() {
-        if (mDatabase == null) {
-            mDatabase = FirebaseDatabase.getInstance();
-            mDatabase.setPersistenceEnabled(true);
-            // ...
-        }
-
-        return mDatabase;
-
-    }
 
     // Constructor
     public ProductDatabase()
     {
         productList = new ArrayList<>();
+        dataReady = false;
 
         // This saves the database to the phone, so it does not need to download
         // the whole database each time the app is opened
 
-        Log.i("Value Event Listener", "About to attach");
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         // This updates the database on the phone each time the database online is changed
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
@@ -58,6 +49,9 @@ public class ProductDatabase
 
                     productList.add(item);
                 }
+
+                dataReady = true;
+                Log.i("Database Size", String.valueOf(productList.size()) + " items");
             }
 
             @Override
@@ -72,13 +66,6 @@ public class ProductDatabase
     // Checks to see if the product list has been filled and is ready to be displayed
     public boolean isDataReady()
     {
-        if (productList.size() == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return dataReady;
     }
 }

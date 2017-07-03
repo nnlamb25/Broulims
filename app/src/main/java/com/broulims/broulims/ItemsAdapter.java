@@ -1,12 +1,10 @@
 package com.broulims.broulims;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +65,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), products.get(position).getItemDescription() + " clicked", Toast.LENGTH_SHORT).show();
-                FrontPage.viewMap();
+                FragmentHolder.viewMap();
                 String itemDesc = products.get(position).getItemDescription();
                 Long aisle = products.get(position).getAisle();
-                Toast.makeText(holder.itemView.getContext(), itemDesc + " clicked aisle: " + aisle.toString(), Toast.LENGTH_SHORT).show();
                 addToList(products.get(position));
 
             }

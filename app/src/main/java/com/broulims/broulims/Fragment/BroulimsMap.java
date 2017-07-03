@@ -17,7 +17,6 @@ package com.broulims.broulims.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +65,7 @@ public class BroulimsMap extends Fragment
         View view = inflater.inflate(R.layout.broulims_map, container, false);
 
         products = new ArrayList<>();
+
         // Load the webpage for the map, yeah say goodbye to google maps
         webView = (WebView) view.findViewById(R.id.map_view);
         WebSettings webSettings = webView.getSettings();
