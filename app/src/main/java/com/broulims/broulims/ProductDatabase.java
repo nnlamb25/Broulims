@@ -10,6 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by NathanLamb on 6/20/17.
  * This holds the product list array from the database, and updates the database each time
@@ -19,6 +20,18 @@ import java.util.List;
 public class ProductDatabase
 {
     public List<Item> productList = new ArrayList<>();
+    public static FirebaseDatabase mDatabase;
+
+    public static FirebaseDatabase getDatabase() {
+        if (mDatabase == null) {
+            mDatabase = FirebaseDatabase.getInstance();
+            mDatabase.setPersistenceEnabled(true);
+            // ...
+        }
+
+        return mDatabase;
+
+    }
 
     // Constructor
     public ProductDatabase()
@@ -27,7 +40,7 @@ public class ProductDatabase
 
         // This saves the database to the phone, so it does not need to download
         // the whole database each time the app is opened
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         Log.i("Value Event Listener", "About to attach");
 
         // This updates the database on the phone each time the database online is changed

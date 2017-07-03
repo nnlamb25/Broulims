@@ -145,5 +145,6 @@ public class FrontPage extends AppCompatActivity {
         adapter.addFragment(broulimsMap);
         adapter.addFragment(searchItems);
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(1);
     }
 }

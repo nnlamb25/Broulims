@@ -44,7 +44,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
     ProgressBar loadingSpinner;
     SearchView searchView;
     Handler handler;
-    ProductDatabase productDatabase;
+    public static ProductDatabase productDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
