@@ -46,9 +46,7 @@ import com.broulims.broulims.R;
  */
 public class BroulimsMap extends Fragment
 {
-
     private WebView webView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

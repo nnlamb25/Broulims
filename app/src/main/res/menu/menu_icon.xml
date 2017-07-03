@@ -5,19 +5,18 @@
 
     <item
         android:id="@+id/Bottombaritemone"
-        android:icon="@drawable/home"
+        android:icon="@mipmap/home"
         android:title="Home" />
 
 
         <item
             android:id="@+id/Bottombaritemtwo"
-            android:icon="@drawable/ic_action_list"
-            android:title="List"
+            android:icon="@mipmap/map"
+            android:title="Store Map"
             />
 
         <item android:id="@+id/Bottombaritemothree"
-            android:icon="@drawable/ic_action_search"
+            android:icon="@mipmap/search"
             android:title="Search"/>
-
 
 </menu>

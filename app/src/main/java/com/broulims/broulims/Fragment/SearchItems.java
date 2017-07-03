@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.broulims.broulims.FrontPage;
 import com.broulims.broulims.Item;
 import com.broulims.broulims.ItemsAdapter;
 import com.broulims.broulims.ProductDatabase;
@@ -44,6 +45,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
     ProgressBar loadingSpinner;
     SearchView searchView;
     Handler handler;
+    FrontPage frontPage;
     public static ProductDatabase productDatabase;
 
     @Override
@@ -70,8 +72,6 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
 
         loadingSpinner.setVisibility(View.VISIBLE);
 
-
-
         // Inflate the layout for this fragment
         return view;
     }
@@ -89,7 +89,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
             {
                 while (!productDatabase.isDataReady())
                 {
-
+                    // Waiting for data to load...
                 }
 
                 handler.post(new Runnable() {
@@ -109,10 +109,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
             }
         };
 
-
         new Thread(runnable).start();
-
-
     }
 
 
@@ -170,4 +167,10 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
 
         return true ;
     }
+
+    public void setFrontPageContext(FrontPage frontPageContext)
+    {
+        frontPage = frontPageContext;
+    }
+
 }

@@ -5,20 +5,18 @@
     <item
         android:id="@+id/home"
         android:title="Home Page"
-        android:icon="@drawable/home"
+        android:icon="@mipmap/home"
         />
 
     <item
-        android:id="@+id/list"
-        android:title="Product List"
-        android:icon="@drawable/list"
+        android:id="@+id/map"
+        android:title="Store Map"
+        android:icon="@mipmap/map"
         />
 
     <item
         android:id="@+id/search"
         android:title="Search"
-        android:icon="@drawable/search"
+        android:icon="@mipmap/search"
         />
 </menu>
-
-    <!-- android:icon="@drawable/ic_home_black" -->

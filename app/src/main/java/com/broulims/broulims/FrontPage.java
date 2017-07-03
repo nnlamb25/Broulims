@@ -24,7 +24,7 @@ import com.broulims.broulims.Fragment.SearchItems;
  */
 
 public class FrontPage extends AppCompatActivity {
-    private ViewPager viewPager;
+    protected static ViewPager viewPager;
     BottomNavigationView bottomNavigationView;
 
     // Fragments
@@ -34,7 +34,6 @@ public class FrontPage extends AppCompatActivity {
 
     MenuItem menuItem;
     ImageView splashScreen;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +73,8 @@ public class FrontPage extends AppCompatActivity {
                         getSupportActionBar().hide();
                         if (viewPager.getCurrentItem() != 0)
                             viewPager.setCurrentItem(0);
-                        else
-                        {
-                            if (websiteView.getCurrentURL() != websiteView.getHomePage())
-                            {
-                                websiteView.setURL(websiteView.getHomePage());
-                            }
-                        }
+                        else if (websiteView.getCurrentURL() != websiteView.getHomePage())
+                            websiteView.setURL(websiteView.getHomePage());
                         break;
                     case R.id.Bottombaritemtwo:
                         getSupportActionBar().hide();
@@ -145,6 +139,10 @@ public class FrontPage extends AppCompatActivity {
         adapter.addFragment(broulimsMap);
         adapter.addFragment(searchItems);
         viewPager.setAdapter(adapter);
+    }
+
+    static public void viewMap()
+    {
         viewPager.setCurrentItem(1);
     }
 }
