@@ -44,19 +44,29 @@
     var topleft =  Maze.latLng({ lat: 43.82765, lng: -111.78790 }),
         topright = Maze.latLng({ lat: 43.82765, lng: -111.78685 }),
         bottomleft = Maze.latLng({lat: 43.8270, lng: -111.78790 });    
-        
-    var popup = L.popup()
-    .setLatLng([43.8272716, -111.78755])
-    .setContent("Hi.")
-    .openOn(map);
+
+
+    map.on('click', function(e){
+        var string = e.latlng
+        var popup = L.popup()
+        popup.setLatLng(e.latlng)
+        .setContent(string.toString())
+        .openOn(map);
+    });
+
         
     var overlay = Maze.imageOverlay.rotated("broulims.map.jpg", topleft, topright, bottomleft, {
             opacity: 2
         });
         
     overlay.addTo(map);
-    
-    
+
+    function hello(items){
+        var pop = L.popup()
+        pop.setLatLng([43.82747, -111.78717])
+        .setContent("You have " + items + " items")
+        .openOn(map);
+    }
 
 	</script>
 
