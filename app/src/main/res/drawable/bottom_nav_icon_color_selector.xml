@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="@color/broulim_purple" />
+    <item android:state_pressed="true" android:state_enabled="true" android:color="@android:color/white" />
+    <item android:color="@color/colorWhite" />
+</selector>
+
+    <!--
+    Had help from
+    https://stackoverflow.com/questions/38799535/how-to-change-inactive-color-on-bottom-navigation
+    -->
