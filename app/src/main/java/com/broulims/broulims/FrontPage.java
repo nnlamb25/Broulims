@@ -72,7 +72,15 @@ public class FrontPage extends AppCompatActivity {
                 {
                     case R.id.Bottombaritemone:
                         getSupportActionBar().hide();
-                        viewPager.setCurrentItem(0);
+                        if (viewPager.getCurrentItem() != 0)
+                            viewPager.setCurrentItem(0);
+                        else
+                        {
+                            if (websiteView.getCurrentURL() != websiteView.getHomePage())
+                            {
+                                websiteView.setURL(websiteView.getHomePage());
+                            }
+                        }
                         break;
                     case R.id.Bottombaritemtwo:
                         getSupportActionBar().hide();

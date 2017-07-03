@@ -31,6 +31,7 @@ import com.broulims.broulims.R;
 public class WebsiteView extends Fragment
 {
     private WebView webView;
+    private String homePage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,26 @@ public class WebsiteView extends Fragment
         webSettings.setJavaScriptEnabled(true);
 
         webView.setWebViewClient(new WebViewClient());
+        homePage = "https://broulims.com/";
 
-        webView.loadUrl("https://broulims.com/");
+        webView.loadUrl(homePage);
         //getActivity().getActionBar().hide();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public String getCurrentURL()
+    {
+        return webView.getUrl().toString();
+    }
+
+    public String getHomePage()
+    {
+        return homePage;
+    }
+
+    public void setURL(String URL)
+    {
+        webView.loadUrl(URL);
     }
 }
