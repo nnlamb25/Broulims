@@ -17,6 +17,7 @@ package com.broulims.broulims.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ import java.util.List;
 public class BroulimsMap extends Fragment
 {
 
-    private WebView webView;
+    private static WebView webView;
     private static List<Item> products;
 
     @Override
@@ -63,15 +64,17 @@ public class BroulimsMap extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.broulims_map, container, false);
-
         products = new ArrayList<>();
+
+        final int items = products.size();
 
         // Load the webpage for the map, yeah say goodbye to google maps
         webView = (WebView) view.findViewById(R.id.map_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("file:///android_asset/broulimsmap.html");
+
+        loadList();
         // Inflate the layout for this fragment
         return view;
     }
@@ -79,5 +82,32 @@ public class BroulimsMap extends Fragment
     public static void addToList(Item item){
         products.add(item);
         Log.i("Added", item.getItemDescription());
+
+        final int items = products.size();
+        String count = " " + items;
+        Log.i("count", count);
+
+        loadList();
     }
+
+    public static void loadList(){
+        for (int i = 0; i < products.size(); i++)
+        {
+            final int item = i;
+            Log.i("aisle", products.get(item).getAisle().toString());
+            webView.loadUrl("file:///android_asset/broulimsmap.html");
+            webView.setWebViewClient(new WebViewClient() {
+
+                public void onPageFinished(WebView view, String url)
+                {
+                    webView.loadUrl("javascript:createMarkers(" + products.get(item).getAisle() + ");");
+                }
+            });
+        }
+
+
+
+    }
+
+
 }

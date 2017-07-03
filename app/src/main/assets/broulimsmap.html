@@ -31,43 +31,121 @@
 	<div id='mazemap-container'></div>
 
 	<script>
-
-
+	
     var map = Maze.map('mazemap-container');
         
     map.setView([43.8272716,-111.787400], 19);
     map._layersMaxZoom=21;
-    map._layersMinZoom=19;    
+    map._layersMinZoom=19;       
     
     map.setMaxBounds(map.getBounds());
     
     var topleft =  Maze.latLng({ lat: 43.82765, lng: -111.78790 }),
         topright = Maze.latLng({ lat: 43.82765, lng: -111.78685 }),
         bottomleft = Maze.latLng({lat: 43.8270, lng: -111.78790 });    
-
-
+        
     map.on('click', function(e){
         var string = e.latlng
-        var popup = L.popup()
-        popup.setLatLng(e.latlng)
-        .setContent(string.toString())
-        .openOn(map);
-    });
+        var marker = Maze.marker(e.latlng, {
+        icon: Maze.icon.chub({ 
+        color: 'orange',
+			glyph: 'apple',
+			glyphColor: 'white'
+        }),
+        zLevel: 4,
+        offZOpacity: 0.6
+    }).addTo(map);
 
+    var popup = Maze.popup().setContent('<p><strong>Hello world!</strong><br />I am a printer, and I am located <i>exactly</i> at this indoor location!' + string + '</p>');
+
+    marker.bindPopup(popup);
+    });
         
     var overlay = Maze.imageOverlay.rotated("broulims.map.jpg", topleft, topright, bottomleft, {
             opacity: 2
         });
         
     overlay.addTo(map);
-
-    function hello(items){
+        
+  function hello(items){
         var pop = L.popup()
         pop.setLatLng([43.82747, -111.78717])
         .setContent("You have " + items + " items")
         .openOn(map);
     }
+        
+    function getLocation(aisle){
+    
+    var latlng;
+    
+    switch(aisle) {
+        case 1:
+            latlng = [43.82747, -111.78717];
+            break;
+        case 2:
+            latlng = [43.82747, -111.78722];
+            break;
+        case 3:
+            latlng = [43.82747, -111.78726];
+            break;
+        case 4:
+            latlng = [43.82747, -111.78729];
+            break;
+        case 5:
+            latlng = [43.82747, -111.78732];
+            break;
+        case 6:
+            latlng = [43.82747, -111.78736];
+            break;
+        case 7:
+            latlng = [43.82747, -111.78739];
+            break;
+        case 8:
+            latlng = [43.82747, -111.78742];
+            break;
+        case 9:
+            latlng = [43.82747, -111.78745];
+            break;
+        case 10:
+            latlng = [43.82747, -111.78749];
+            break;
+        case 11:
+            latlng = [43.82747, -111.78753];
+            break;
+        case 12:
+            latlng = [43.82747, -111.78756];
+            break;
+        case 13:
+            latlng = [43.82747, -111.78759];
+            break;
+        case 14:
+            latlng = [43.82747, -111.78763];
+            break;
+        case 15:
+            latlng = [43.82747, -111.78766];
+            break;
+        case 16:
+            latlng = [43.82747, -111.78766];
+            break;
+        case 17:
+            latlng = [43.82744, -111.78776];
+            break;
+        default:
+            latlng = null;
+              }
+        return latlng;
+        
+    }
+    
+    function createMarkers(aisle){
+        var layerGroup = L.layerGroup().addTo(map);
+        var marker = L.marker(getLocation(aisle));
+        layerGroup.addLayer(marker);
+    }
 
+    var overlay = {'markers': layerGroup};
+    L.control.layers(null, overlay).addTo(map);
+    
 	</script>
 
 
