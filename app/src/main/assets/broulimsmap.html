@@ -137,11 +137,23 @@
         
     }
     
-    function createMarkers(aisle){
+        function createMarkers(aisle, item){
         var layerGroup = L.layerGroup().addTo(map);
-        var marker = L.marker(getLocation(aisle));
+        var marker = Maze.marker(getLocation(aisle), {
+        icon: Maze.icon.chub({
+        color: 'purple',
+			glyph: 'food',
+			glyphColor: 'white'
+        }),
+        opacity: .6,
+        zLevel: 4,
+    });
+         var popup = Maze.popup().setContent('<p><strong>' + item+ '</strong><br />I delicious food waiting to be bought!</p>');
+
+        marker.bindPopup(popup);
         layerGroup.addLayer(marker);
     }
+
 
     var overlay = {'markers': layerGroup};
     L.control.layers(null, overlay).addTo(map);
