@@ -35,7 +35,7 @@ import java.util.List;
  *
  * @author Nathan Lamb on 6/14/2017
  */
-public class SearchItems extends Fragment implements SearchView.OnQueryTextListener {
+public class SearchItems extends Fragment  {
 
     RecyclerView products;
     ItemsAdapter itemsAdapter;
@@ -56,7 +56,29 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
         View view = inflater.inflate(R.layout.activity_database_view, container, false);
 
         productDatabase = new ProductDatabase();
-        handler = new Handler();
+        searchView = (SearchView) view.findViewById(R.id.search_box);
+        searchView.setQueryHint("Enter your item");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                              @Override
+                                              public boolean onQueryTextSubmit(String query) {
+                                                  return false;
+                                              }
+
+                                              @Override
+                                              public boolean onQueryTextChange(String newText) {
+                                                  newText = newText.toLowerCase();
+                                                  final ArrayList<Item> newList = new ArrayList<>();
+                                                  for(Item i : productList) {
+                                                      String name = i.getItemDescription().toLowerCase();
+                                                      if(name.contains(newText))
+                                                          newList.add(i);
+                                                  }
+                                                  itemsAdapter.setFilter(newList);
+
+                                                  return true ;
+                                              }
+                                          });
+                handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -78,7 +100,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
 
         final Runnable runnable = new Runnable() {
             @Override
@@ -108,12 +130,13 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
     }
 
 
-    @Override
+    /*@Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_search).setVisible(true);
         super.onPrepareOptionsMenu(menu);
 
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -140,25 +163,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
                         return true; // Return true to expand action view
                     }
                 });
-    }
+    }*/
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-
-        newText = newText.toLowerCase();
-        final ArrayList<Item> newList = new ArrayList<>();
-        for(Item i : productList) {
-            String name = i.getItemDescription().toLowerCase();
-            if(name.contains(newText))
-                newList.add(i);
-        }
-        itemsAdapter.setFilter(newList);
-
-        return true ;
-    }
 }

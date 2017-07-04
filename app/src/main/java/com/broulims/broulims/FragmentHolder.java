@@ -40,13 +40,7 @@ public class FragmentHolder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_holder);
-        getSupportActionBar().hide();
 
-        /*
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
-        */
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager);
         splashScreen = (ImageView) findViewById(R.id.SplashScreen);
@@ -73,18 +67,18 @@ public class FragmentHolder extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.Bottombaritemone:
-                        getSupportActionBar().hide();
+                        //getSupportActionBar().hide();
                         if (viewPager.getCurrentItem() != 0)
                             viewPager.setCurrentItem(0);
                         else if (websiteView.getCurrentURL() != websiteView.getHomePage())
                             websiteView.setURL(websiteView.getHomePage());
                         break;
                     case R.id.Bottombaritemtwo:
-                        getSupportActionBar().hide();
+                        //getSupportActionBar().hide();
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.Bottombaritemothree:
-                        getSupportActionBar().show();
+                        //getSupportActionBar().show();
                         viewPager.setCurrentItem(2);
                         break;
                 }
