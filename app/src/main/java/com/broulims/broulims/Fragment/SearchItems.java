@@ -68,12 +68,14 @@ public class SearchItems extends Fragment  {
                                               public boolean onQueryTextChange(String newText) {
                                                   newText = newText.toLowerCase();
                                                   final ArrayList<Item> newList = new ArrayList<>();
-                                                  for(Item i : productList) {
-                                                      String name = i.getItemDescription().toLowerCase();
-                                                      if(name.contains(newText))
-                                                          newList.add(i);
+                                                  if (itemsAdapter != null) {
+                                                      for (Item i : productList) {
+                                                          String name = i.getItemDescription().toLowerCase();
+                                                          if (name.contains(newText))
+                                                              newList.add(i);
+                                                      }
+                                                      itemsAdapter.setFilter(newList);
                                                   }
-                                                  itemsAdapter.setFilter(newList);
 
                                                   return true ;
                                               }

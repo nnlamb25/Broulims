@@ -64,7 +64,7 @@
         zLevel: 4,
         offZOpacity: 0.6
     }).addTo(map);
-    }); */
+    });*/
 
 
     // This function counts the number of items
@@ -148,11 +148,11 @@ function getLocation(aisle){
         icon: Maze.icon.chub({
         color: 'purple',
 			glyph: 'food',
-			glyphColor: 'green'
+			glyphColor: 'white'
         }),
-        opacity: .6
+        opacity: .9
     });
-         var popup = Maze.popup().setContent('<p><strong>Aisle ' + aisle + '</strong>');
+         var popup = Maze.popup().setContent('<p><strong>' + item + '</strong><br />I delicious food waiting to be bought!</p>');
 
         // sets the description
         marker.bindPopup(popup);
