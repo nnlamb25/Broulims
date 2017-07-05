@@ -123,46 +123,6 @@ public class SearchItems extends Fragment  {
                     products.setVisibility(View.GONE);
             }
         });
-
-        /*
-        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query)
-            {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText)
-            {
-                Log.i("New Text", newText);
-                if (products.getVisibility() == View.GONE && newText != "")
-                    products.setVisibility(View.VISIBLE);
-                else if (products.getVisibility() == View.VISIBLE && newText == "")
-                    products.setVisibility(View.GONE);
-
-                if (products.getVisibility() == View.VISIBLE)
-                {
-                    newText = newText.toLowerCase();
-                    final ArrayList<Item> newList = new ArrayList<>();
-                    if (itemsAdapter != null)
-                    {
-                        for (Item i : productList)
-                        {
-                            String name = i.getItemDescription().toLowerCase();
-                            if (name.contains(newText))
-                                newList.add(i);
-                        }
-                        itemsAdapter.setFilter(newList);
-                    }
-                }
-                return true;
-            }
-        };
-
-        search.setOnQueryTextListener(textListener);
-        */
         handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
@@ -213,6 +173,4 @@ public class SearchItems extends Fragment  {
 
         new Thread(runnable).start();
     }
-
-
 }
