@@ -1,6 +1,7 @@
 package com.broulims.broulims;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -8,7 +9,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,7 +32,7 @@ import com.broulims.broulims.Fragment.SearchItems;
 
 public class FragmentHolder extends AppCompatActivity {
     protected static CustomViewPager viewPager;
-    BottomNavigationView bottomNavigationView;
+    protected static BottomNavigationView bottomNavigationView;
 
     // Fragments
     WebsiteView websiteView;
@@ -146,5 +149,18 @@ public class FragmentHolder extends AppCompatActivity {
         viewPager.setCurrentItem(1);
     }
 
+
+    static public void showBottom() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    static public void hideBottom() {
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public static float dpToPx(Context context, float valueInDp) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.broulims.broulims.Fragment;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -7,10 +8,13 @@ import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -21,6 +25,10 @@ import com.broulims.broulims.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.broulims.broulims.FragmentHolder.dpToPx;
+import static com.broulims.broulims.FragmentHolder.hideBottom;
+import static com.broulims.broulims.FragmentHolder.showBottom;
 
 /**
  * This is the search activity for the program. The program allows the user
@@ -54,10 +62,26 @@ public class SearchItems extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_database_view, container, false);
+        final View view = inflater.inflate(R.layout.activity_database_view, container, false);
 
         productDatabase = new ProductDatabase();
         search = (EditText) view.findViewById(R.id.search_box);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int heightDiff = view.getRootView().getHeight() - view.getHeight();
+                if (heightDiff > dpToPx(getContext(), 200)) {
+                    hideBottom();
+                }
+                else
+                {
+                    showBottom();
+                    //Log.i("key", "notshowing");
+                }
+
+            }
+        });
+
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,4 +213,6 @@ public class SearchItems extends Fragment  {
 
         new Thread(runnable).start();
     }
+
+
 }

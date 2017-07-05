@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.broulims.broulims.R;
+
+import static com.broulims.broulims.FragmentHolder.dpToPx;
+import static com.broulims.broulims.FragmentHolder.hideBottom;
+import static com.broulims.broulims.FragmentHolder.showBottom;
 
 
 /**
@@ -41,7 +46,7 @@ public class WebsiteView extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_website_view, container, false);
+        final View view = inflater.inflate(R.layout.activity_website_view, container, false);
         webView = (WebView) view.findViewById(R.id.website_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -52,6 +57,21 @@ public class WebsiteView extends Fragment
         webView.loadUrl(homePage);
         //getActivity().getActionBar().hide();
         // Inflate the layout for this fragment
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int heightDiff = view.getRootView().getHeight() - view.getHeight();
+                if (heightDiff > dpToPx(getContext(), 200)) {
+                    hideBottom();
+                }
+                else
+                {
+                    showBottom();
+                    //Log.i("key", "notshowing");
+                }
+
+            }
+        });
         return view;
     }
 
