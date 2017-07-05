@@ -1,6 +1,7 @@
 package com.broulims.broulims.Fragment;
 
 import android.graphics.Color;
+import android.content.Context;
 import android.os.Handler;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -57,10 +62,30 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
         super.onCreate(savedInstanceState);
     }
 
+    public static float dpToPx(Context context, float valueInDp) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_database_view, container, false);
+        final View view = inflater.inflate(R.layout.activity_database_view, container, false);
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int heightDiff = view.getRootView().getHeight() - view.getHeight();
+                if (heightDiff > dpToPx(getContext(), 200)) {
+                    Log.i("key", "yousuck");
+                }
+                else
+                {
+                    Log.i("key", "notshowing");
+                }
+
+            }
+        });
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         toolbar.setTitle("Search");
         toolbar.setTitleTextColor(Color.WHITE);
