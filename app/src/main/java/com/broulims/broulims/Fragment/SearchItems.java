@@ -1,9 +1,12 @@
 package com.broulims.broulims.Fragment;
 
+import android.graphics.Color;
 import android.os.Handler;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.broulims.broulims.Item;
 import com.broulims.broulims.ItemsAdapter;
@@ -21,6 +25,8 @@ import com.broulims.broulims.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.View.GONE;
 
 /**
  * This is the search activity for the program. The program allows the user
@@ -33,9 +39,9 @@ import java.util.List;
  * Had help from:
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
  *
- * @author Nathan Lamb on 6/14/2017
+ * @author Nathan Lamb and Daniel Dang on 6/14/2017
  */
-public class SearchItems extends Fragment  {
+public class SearchItems extends Fragment implements SearchView.OnQueryTextListener  {
 
     RecyclerView products;
     ItemsAdapter itemsAdapter;
@@ -43,6 +49,7 @@ public class SearchItems extends Fragment  {
     ProgressBar loadingSpinner;
     SearchView searchView;
     Handler handler;
+    BottomNavigationView bottomNavigationView;
     public static ProductDatabase productDatabase;
 
     @Override
@@ -54,35 +61,20 @@ public class SearchItems extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_database_view, container, false);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setTitle("Search");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setSubtitleTextColor(Color.WHITE);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
+        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottomNavView_Bar);
         productDatabase = new ProductDatabase();
-        searchView = (SearchView) view.findViewById(R.id.search_box);
-        searchView.setQueryHint("Enter your item");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                                              @Override
-                                              public boolean onQueryTextSubmit(String query) {
-                                                  return false;
-                                              }
 
-                                              @Override
-                                              public boolean onQueryTextChange(String newText) {
-                                                  newText = newText.toLowerCase();
-                                                  final ArrayList<Item> newList = new ArrayList<>();
-                                                  if (itemsAdapter != null) {
-                                                      for (Item i : productList) {
-                                                          String name = i.getItemDescription().toLowerCase();
-                                                          if (name.contains(newText))
-                                                              newList.add(i);
-                                                      }
-                                                      itemsAdapter.setFilter(newList);
-                                                  }
-
-                                                  return true ;
-                                              }
-                                          });
-                handler = new Handler();
+        handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
+
+
 
         products = (RecyclerView) view.findViewById(R.id.products);
         products.setLayoutManager(productLayoutManager);
@@ -102,7 +94,7 @@ public class SearchItems extends Fragment  {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
         final Runnable runnable = new Runnable() {
             @Override
@@ -117,7 +109,7 @@ public class SearchItems extends Fragment  {
                     @Override
                     public void run()
                     {
-                        loadingSpinner.setVisibility(View.GONE);
+                        loadingSpinner.setVisibility(GONE);
 
                         productList = productDatabase.productList;
 
@@ -131,8 +123,7 @@ public class SearchItems extends Fragment  {
         new Thread(runnable).start();
     }
 
-
-    /*@Override
+    @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_search).setVisible(true);
         super.onPrepareOptionsMenu(menu);
@@ -144,28 +135,48 @@ public class SearchItems extends Fragment  {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
-        //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
+
+
+        searchView.setQueryHint("Enter your item");
 
 
         MenuItemCompat.setOnActionExpandListener(menuItem,
                 new MenuItemCompat.OnActionExpandListener() {
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
-                    // Do something when collapsed
+                        // Do something when collapsed
                         itemsAdapter.setFilter(productList);
+
                         return true; // Return true to collapse action view
                     }
 
                     @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                    // Do something when expanded
+                    public boolean onMenuItemActionExpand(MenuItem item) {// Do something when expanded
+                        //bottomNavigationView.setVisibility(GONE);
                         return true; // Return true to expand action view
                     }
                 });
-    }*/
+    }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        newText = newText.toLowerCase();
+        final ArrayList<Item> newList = new ArrayList<>();
+        for(Item i : productList) {
+            String name = i.getItemDescription().toLowerCase();
+            if(name.contains(newText))
+                newList.add(i);
+        }
+        itemsAdapter.setFilter(newList);
+
+        return true;
+    }
 }

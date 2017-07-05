@@ -12,41 +12,43 @@ android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
-
-
-            <android.support.v7.widget.SearchView
-                android:id="@+id/search_box"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:iconifiedByDefault="true"
-                android:showAsAction="always"
-                android:queryHint="Enter your item"/>
+                android:background="@color/broulim_purple"
+                app:titleTextColor="@color/colorWhite"
+                app:subtitleTextColor="@color/colorWhite"
+                android:title="Search"
+                />
+
+
 
             <ProgressBar
                 android:id="@+id/progressSpinner"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.046"
+                android:layout_below="@+id/toolbar"
                 android:layout_marginTop="8dp"
-                android:layout_below="@+id/search_box" />
+                android:scrollbars="vertical"
+                app:layout_constraintHorizontal_bias="0.046"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
         </RelativeLayout>
 
