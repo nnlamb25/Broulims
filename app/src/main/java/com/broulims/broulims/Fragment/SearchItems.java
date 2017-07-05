@@ -1,27 +1,18 @@
 package com.broulims.broulims.Fragment;
 
-import android.graphics.Color;
-import android.content.Context;
 import android.os.Handler;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
-import android.util.DisplayMetrics;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.broulims.broulims.Item;
 import com.broulims.broulims.ItemsAdapter;
@@ -30,8 +21,6 @@ import com.broulims.broulims.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.view.View.GONE;
 
 /**
  * This is the search activity for the program. The program allows the user
@@ -44,17 +33,17 @@ import static android.view.View.GONE;
  * Had help from:
  * http://www.androidhive.info/2016/01/android-working-with-recycler-view/
  *
- * @author Nathan Lamb and Daniel Dang on 6/14/2017
+ * @author Nathan Lamb on 6/14/2017
  */
-public class SearchItems extends Fragment implements SearchView.OnQueryTextListener  {
+public class SearchItems extends Fragment  {
 
     RecyclerView products;
     ItemsAdapter itemsAdapter;
     List<Item> productList = new ArrayList<>();
     ProgressBar loadingSpinner;
-    SearchView searchView;
+    EditText search;
     Handler handler;
-    BottomNavigationView bottomNavigationView;
+    String newText;
     public static ProductDatabase productDatabase;
 
     @Override
@@ -62,44 +51,97 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
         super.onCreate(savedInstanceState);
     }
 
-    public static float dpToPx(Context context, float valueInDp) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.activity_database_view, container, false);
+        View view = inflater.inflate(R.layout.activity_database_view, container, false);
 
-        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        productDatabase = new ProductDatabase();
+        search = (EditText) view.findViewById(R.id.search_box);
+
+        search.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onGlobalLayout() {
-                int heightDiff = view.getRootView().getHeight() - view.getHeight();
-                if (heightDiff > dpToPx(getContext(), 200)) {
-                    Log.i("key", "yousuck");
-                }
-                else
-                {
-                    Log.i("key", "notshowing");
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+                if (search.getText().length() == 0)
+                    products.setVisibility(View.GONE);
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if (products.getVisibility() == View.GONE && search.getText().length() != 0)
+                    products.setVisibility(View.VISIBLE);
+                else if (products.getVisibility() == View.VISIBLE && search.getText().length() == 0)
+                    products.setVisibility(View.GONE);
+
+                if (products.getVisibility() == View.VISIBLE)
+                {
+                    newText = String.valueOf(s).toLowerCase();
+                    final ArrayList<Item> newList = new ArrayList<>();
+                    if (itemsAdapter != null)
+                    {
+                        for (Item i : productList)
+                        {
+                            String name = i.getItemDescription().toLowerCase();
+                            if (name.contains(newText))
+                                newList.add(i);
+                        }
+                        itemsAdapter.setFilter(newList);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (search.getText().length() == 0)
+                    products.setVisibility(View.GONE);
             }
         });
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("Search");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setSubtitleTextColor(Color.WHITE);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottomNavView_Bar);
-        productDatabase = new ProductDatabase();
+        /*
+        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
 
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                Log.i("New Text", newText);
+                if (products.getVisibility() == View.GONE && newText != "")
+                    products.setVisibility(View.VISIBLE);
+                else if (products.getVisibility() == View.VISIBLE && newText == "")
+                    products.setVisibility(View.GONE);
+
+                if (products.getVisibility() == View.VISIBLE)
+                {
+                    newText = newText.toLowerCase();
+                    final ArrayList<Item> newList = new ArrayList<>();
+                    if (itemsAdapter != null)
+                    {
+                        for (Item i : productList)
+                        {
+                            String name = i.getItemDescription().toLowerCase();
+                            if (name.contains(newText))
+                                newList.add(i);
+                        }
+                        itemsAdapter.setFilter(newList);
+                    }
+                }
+                return true;
+            }
+        };
+
+        search.setOnQueryTextListener(textListener);
+        */
         handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
-
-
 
         products = (RecyclerView) view.findViewById(R.id.products);
         products.setLayoutManager(productLayoutManager);
@@ -119,7 +161,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
 
         final Runnable runnable = new Runnable() {
             @Override
@@ -134,7 +176,7 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
                     @Override
                     public void run()
                     {
-                        loadingSpinner.setVisibility(GONE);
+                        loadingSpinner.setVisibility(View.GONE);
 
                         productList = productDatabase.productList;
 
@@ -146,62 +188,5 @@ public class SearchItems extends Fragment implements SearchView.OnQueryTextListe
         };
 
         new Thread(runnable).start();
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_search).setVisible(true);
-        super.onPrepareOptionsMenu(menu);
-
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(this);
-
-
-        searchView.setQueryHint("Enter your item");
-
-
-        MenuItemCompat.setOnActionExpandListener(menuItem,
-                new MenuItemCompat.OnActionExpandListener() {
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        // Do something when collapsed
-                        itemsAdapter.setFilter(productList);
-
-                        return true; // Return true to collapse action view
-                    }
-
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {// Do something when expanded
-                        //bottomNavigationView.setVisibility(GONE);
-                        return true; // Return true to expand action view
-                    }
-                });
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        newText = newText.toLowerCase();
-        final ArrayList<Item> newList = new ArrayList<>();
-        for(Item i : productList) {
-            String name = i.getItemDescription().toLowerCase();
-            if(name.contains(newText))
-                newList.add(i);
-        }
-        itemsAdapter.setFilter(newList);
-
-        return true;
     }
 }
