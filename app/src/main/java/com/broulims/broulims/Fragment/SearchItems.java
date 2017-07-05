@@ -7,7 +7,6 @@ import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,46 +98,6 @@ public class SearchItems extends Fragment  {
                     products.setVisibility(View.GONE);
             }
         });
-
-        /*
-        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query)
-            {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText)
-            {
-                Log.i("New Text", newText);
-                if (products.getVisibility() == View.GONE && newText != "")
-                    products.setVisibility(View.VISIBLE);
-                else if (products.getVisibility() == View.VISIBLE && newText == "")
-                    products.setVisibility(View.GONE);
-
-                if (products.getVisibility() == View.VISIBLE)
-                {
-                    newText = newText.toLowerCase();
-                    final ArrayList<Item> newList = new ArrayList<>();
-                    if (itemsAdapter != null)
-                    {
-                        for (Item i : productList)
-                        {
-                            String name = i.getItemDescription().toLowerCase();
-                            if (name.contains(newText))
-                                newList.add(i);
-                        }
-                        itemsAdapter.setFilter(newList);
-                    }
-                }
-                return true;
-            }
-        };
-
-        search.setOnQueryTextListener(textListener);
-        */
         handler = new Handler();
 
         RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
