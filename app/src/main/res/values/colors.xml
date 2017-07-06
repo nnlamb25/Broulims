@@ -7,4 +7,5 @@
     <color name="broulim_purple">#7C2352</color>
     <color name="colorGrey">#c3c3c3</color>
     <color name="colorWhite">#fff</color>
+    <color name="black">#000000</color>
 </resources>

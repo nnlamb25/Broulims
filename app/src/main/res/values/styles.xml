@@ -13,6 +13,20 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Purple">
+        <item name="colorAccent">@color/broulim_purple</item>
+    </style>
+
+
+    <style name="AppTheme.Green">
+        <item name="colorAccent">@color/broulim_green</item>
+    </style>
+
+
+    <style name="AppTheme.White">
+        <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
