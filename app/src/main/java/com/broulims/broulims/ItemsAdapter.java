@@ -1,15 +1,18 @@
 package com.broulims.broulims;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.broulims.broulims.Fragment.BroulimsMap.addToList;
+import static com.broulims.broulims.FragmentHolder.hideKeyboard;
 
 /**
  * This allows the list view of items to be viewable in the recycle view
@@ -24,6 +27,7 @@ import static com.broulims.broulims.Fragment.BroulimsMap.addToList;
  * @author NathanLamb on 6/14/17
  */
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
+    private Context context;
     private List<Item> products;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -39,8 +43,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
 
     // Constructor
-    public ItemsAdapter(List<Item> products)
+    public ItemsAdapter(Context mContext, List<Item> products)
     {
+        context = mContext;
         this.products = products;
     }
 
@@ -65,10 +70,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
             @Override
             public void onClick(View v) {
+                hideKeyboard(context);
                 FragmentHolder.viewMap();
                 String itemDesc = products.get(position).getItemDescription();
                 Long aisle = products.get(position).getAisle();
                 addToList(products.get(position));
+
+
 
             }
         });

@@ -34,6 +34,7 @@ import com.broulims.broulims.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This is the map activity for the app. It is accessible from the
  * bottom navigation and, when opened, goes to a google maps view
@@ -77,6 +78,7 @@ public class BroulimsMap extends Fragment
         webView.loadUrl("file:///android_asset/broulimsmap.html");
 
         loadList();
+
         // Inflate the layout for this fragment
         return view;
     }

@@ -9,15 +9,11 @@ import android.support.v7.widget.*;
 import android.support.v7.widget.DividerItemDecoration;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.broulims.broulims.Item;
@@ -83,7 +79,6 @@ public class SearchItems extends Fragment  {
 
             }
         });
-
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -166,7 +161,7 @@ public class SearchItems extends Fragment  {
 
                         productList = productDatabase.productList;
 
-                        itemsAdapter = new ItemsAdapter(productList);
+                        itemsAdapter = new ItemsAdapter(getActivity(),productList);
                         products.setAdapter(itemsAdapter);
                     }
                 });

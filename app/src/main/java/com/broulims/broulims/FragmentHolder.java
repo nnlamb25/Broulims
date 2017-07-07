@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.broulims.broulims.Fragment.BroulimsMap;
@@ -36,6 +37,7 @@ public class FragmentHolder extends AppCompatActivity {
 
     // Fragments
     WebsiteView websiteView;
+    Context context;
     BroulimsMap broulimsMap;
     SearchItems searchItems;
 
@@ -47,7 +49,7 @@ public class FragmentHolder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_holder);
 
-
+        context = this;
         viewPager = (CustomViewPager) findViewById(R.id.viewpager);
         splashScreen = (ImageView) findViewById(R.id.SplashScreen);
         viewPager.setOffscreenPageLimit(2);
@@ -80,11 +82,9 @@ public class FragmentHolder extends AppCompatActivity {
                             websiteView.setURL(websiteView.getHomePage());
                         break;
                     case R.id.Bottombaritemtwo:
-                        //getSupportActionBar().hide();
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.Bottombaritemothree:
-                        //getSupportActionBar().show();
                         viewPager.setCurrentItem(2);
                         break;
                 }
@@ -131,6 +131,8 @@ public class FragmentHolder extends AppCompatActivity {
         });
 
         setupViewPager(viewPager);
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -161,6 +163,31 @@ public class FragmentHolder extends AppCompatActivity {
     public static float dpToPx(Context context, float valueInDp) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
+    }
+
+    public static void hideKeyboard(Context ctx) {
+        InputMethodManager inputManager = (InputMethodManager) ctx
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View v = ((Activity) ctx).getCurrentFocus();
+        if (v == null)
+            return;
+
+        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+
+    public static void showKeyboard(Context ctx) {
+        InputMethodManager inputManager = (InputMethodManager) ctx
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View v = ((Activity) ctx).getCurrentFocus();
+        if (v == null)
+            return;
+
+        inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
     }
 
 }
