@@ -32,11 +32,13 @@
 
 <script>
 
+
+
     var map = Maze.map('mazemap-container');
 
     function onCreate(){
     map.setView([43.8272716,-111.787400], 19);
-    map._layersMaxZoom=21;
+    map._layersMaxZoom=22;
     map._layersMinZoom=19;
 
     map.setMaxBounds(map.getBounds());
@@ -53,7 +55,7 @@
     }
 
     // Click on the map
-    /*map.on('click', function(e){
+    map.on('click', function(e){
         var string = e.latlng
         var marker = Maze.marker(e.latlng, {
         icon: Maze.icon.chub({
@@ -64,7 +66,9 @@
         zLevel: 4,
         offZOpacity: 0.6
     }).addTo(map);
-    });*/
+         var popup = Maze.popup().setContent('<p><strong>' + e.latlng + '</strong>');
+         marker.bindPopup(popup);
+    });
 
 
     // This function counts the number of items
@@ -80,65 +84,55 @@
 // this function takes an aisle and then returns a location
 function getLocation(aisle){
 
-    var latlng;
-
-    switch(aisle) {
-        case 1:
-            latlng = [43.82747, -111.78717];
-            break;
-        case 2:
-            latlng = [43.82747, -111.78722];
-            break;
-        case 3:
-            latlng = [43.82747, -111.78726];
-            break;
-        case 4:
-            latlng = [43.82747, -111.78729];
-            break;
-        case 5:
-            latlng = [43.82747, -111.78732];
-            break;
-        case 6:
-            latlng = [43.82747, -111.78736];
-            break;
-        case 7:
-            latlng = [43.82747, -111.78739];
-            break;
-        case 8:
-            latlng = [43.82747, -111.78742];
-            break;
-        case 9:
-            latlng = [43.82747, -111.78745];
-            break;
-        case 10:
-            latlng = [43.82747, -111.78749];
-            break;
-        case 11:
-            latlng = [43.82747, -111.78753];
-            break;
-        case 12:
-            latlng = [43.82747, -111.78756];
-            break;
-        case 13:
-            latlng = [43.82747, -111.78759];
-            break;
-        case 14:
-            latlng = [43.82747, -111.78763];
-            break;
-        case 15:
-            latlng = [43.82747, -111.78766];
-            break;
-        case 16:
-            latlng = [43.82747, -111.78766];
-            break;
-        case 17:
-            latlng = [43.82744, -111.78776];
-            break;
-        default:
-            latlng = "";
-            }
-        return latlng;
-
+    var latlng = {'1B' : [43.82724, -111.78719],
+     '1A': [43.82724, -111.78725],
+     '2B': [43.82724, -111.787265],
+     '2A': [43.82724, -111.78728],
+     '3B': [43.82724, -111.78730],
+     '3A': [43.82724, -111.787315],
+     '4B': [43.82724, -111.78733],
+     '4A': [43.82724, -111.78735],
+     '5B': [43.82724, -111.78736],
+     '5A': [43.82724, -111.78738],
+     '6B': [43.82724, -111.78739],
+     '6A': [43.82724, -111.78741],
+     '7B': [43.82724, -111.78742],
+     '7A': [43.82724, -111.787445],
+     '8B': [43.82724, -111.787465],
+     '8A': [43.82733, -111.78748],
+     '9B': [43.82733, -111.7875],
+     '9A': [43.82724, -111.78752],
+     '10B': [43.82724, -111.787535],
+     '10A': [43.82724, -111.78755],
+     '11B': [43.82724, -111.78757],
+'11A': [43.82724, -111.78758],
+'12B': [43.82724, -111.7876],
+'12A': [43.82724, -111.78762],
+'13B': [43.82724, -111.78764],
+'13A': [43.82724, -111.78765],
+'14B': [43.82724, -111.78767],
+'14A': [43.82724, -111.78769],
+'15B': [43.82724, -111.78771],
+'15A': [43.82724, -111.78775],
+'16B': [43.82724, -111.78777],
+'16A': [43.82736, -111.7878],
+'17A': [43.82719, -111.78769],
+'18B': [43.82721, -111.78765],
+'18A': [43.82719, -111.78769],
+'19B': [43.82717, -111.78765],
+'19A': [43.82715, -111.78769],
+'20B': [43.82714, -111.78765],
+'20C': [43.82714, -111.78774],
+'20E': [43.82717, -111.78778],
+'22A': [43.82753, -111.78771],
+'23A': [43.82753, -111.78752],
+'24A': [43.82753, -111.78742],
+'25A': [43.82753, -111.78732],
+'26A': [43.82753, -111.78723],
+'27A': [43.82753, -111.78706],
+'31A': [43.82723, -111.78776]};
+    console.log("Aisle " + latlng[aisle]);
+    return latlng[aisle];
     }
 
     // Creates a popup on at a specific aisle location
@@ -161,7 +155,7 @@ function getLocation(aisle){
         layerGroup.addLayer(marker);
         var overlay = {};
         overlay[item] = layerGroup;
-        L.control.layers(null, overlay).addTo(map);
+        //L.control.layers(null, overlay).addTo(map);
 
         map.setView(getLocation(aisle), 20);
 
@@ -186,7 +180,6 @@ function getLocation(aisle){
 
     onCreate();
     //searchTest();
-
 	</script>
 
 

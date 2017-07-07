@@ -99,7 +99,7 @@ public class BroulimsMap extends Fragment
         for (int i = 0; i < products.size(); i++)
         {
             final int item = i;
-            line = line + "javascript:createMarkers(" + products.get(item).getAisle() + ",\" " +  products.get(item).getItemDescription() + "\");";
+            line = line + "javascript:createMarkers('" + products.get(item).getAisle() + products.get(item).getSide() + "' ,\" " +  products.get(item).getItemDescription() + "\");";
             Log.i("script", line);
         }
 
