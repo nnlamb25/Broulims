@@ -13,8 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ToggleButton;
 
 import com.broulims.broulims.Item;
 import com.broulims.broulims.ItemsAdapter;
@@ -22,6 +26,8 @@ import com.broulims.broulims.ProductDatabase;
 import com.broulims.broulims.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.broulims.broulims.FragmentHolder.dpToPx;
@@ -46,8 +52,18 @@ public class SearchItems extends Fragment  {
     RecyclerView products;
     ItemsAdapter itemsAdapter;
     List<Item> productList = new ArrayList<>();
+    ArrayList<Item> viewItemsList;
     ProgressBar loadingSpinner;
     EditText search;
+    LinearLayout sortingLayout;
+    LinearLayout choosePriceLayout;
+    ToggleButton sortName;
+    ToggleButton sortBrand;
+    ToggleButton sortPrice;
+    ToggleButton priceLowToHigh;
+    ToggleButton priceHighToLow;
+    ImageView upArrow;
+    ImageView downArrow;
     Handler handler;
     String newText;
     public static ProductDatabase productDatabase;
@@ -64,6 +80,19 @@ public class SearchItems extends Fragment  {
 
         productDatabase = new ProductDatabase();
         search = (EditText) view.findViewById(R.id.search_box);
+        sortingLayout = (LinearLayout) view.findViewById(R.id.sortByLayout);
+        choosePriceLayout = (LinearLayout) view.findViewById(R.id.choosePriceLayout);
+        upArrow = (ImageView) view.findViewById(R.id.pullUp);
+        downArrow = (ImageView) view.findViewById(R.id.dropDown);
+        sortName = (ToggleButton) view.findViewById(R.id.sortName);
+        sortBrand = (ToggleButton) view.findViewById(R.id.sortBrand);
+        sortPrice = (ToggleButton) view.findViewById(R.id.sortPrice);
+        priceHighToLow = (ToggleButton) view.findViewById(R.id.highToLow);
+        priceLowToHigh = (ToggleButton) view.findViewById(R.id.lowToHigh);
+        viewItemsList = new ArrayList<>();
+
+        initializeSortingButtons();
+
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -99,16 +128,17 @@ public class SearchItems extends Fragment  {
                 if (products.getVisibility() == View.VISIBLE)
                 {
                     newText = String.valueOf(s).toLowerCase();
-                    final ArrayList<Item> newList = new ArrayList<>();
+                    viewItemsList.clear();
                     if (itemsAdapter != null)
                     {
                         for (Item i : productList)
                         {
                             String name = i.getItemDescription().toLowerCase();
                             if (name.contains(newText))
-                                newList.add(i);
+                                viewItemsList.add(i);
                         }
-                        itemsAdapter.setFilter(newList);
+                        viewItemsList = sortItemsList(viewItemsList);
+                        itemsAdapter.setFilter(viewItemsList);
                     }
                 }
             }
@@ -137,6 +167,53 @@ public class SearchItems extends Fragment  {
         return view;
     }
 
+    private ArrayList<Item> sortItemsList(ArrayList<Item> itemsList)
+    {
+        if (sortName.isChecked())
+        {
+            Collections.sort(itemsList, new Comparator<Item>() {
+                @Override
+                public int compare(Item o1, Item o2)
+                {
+                    return o1.getItemDescription().compareTo(o2.getItemDescription());
+                }
+            });
+        }
+        else if (sortBrand.isChecked())
+        {
+            Collections.sort(itemsList, new Comparator<Item>() {
+                @Override
+                public int compare(Item o1, Item o2)
+                {
+                    return o1.getItemDescription().compareTo(o2.getItemDescription());
+                }
+            });
+        }
+        else if (priceLowToHigh.isChecked())
+        {
+            Collections.sort(itemsList, new Comparator<Item>() {
+                @Override
+                public int compare(Item o1, Item o2)
+                {
+                    return o1.getBasePrice().compareTo(o2.getBasePrice());
+                }
+            });
+        }
+        else if (priceHighToLow.isChecked())
+        {
+            Collections.sort(itemsList, new Comparator<Item>() {
+                @Override
+                public int compare(Item o1, Item o2)
+                {
+                    return o1.getBasePrice().compareTo(o2.getBasePrice());
+                }
+            });
+
+            Collections.reverse(itemsList);
+        }
+
+        return itemsList;
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -169,5 +246,104 @@ public class SearchItems extends Fragment  {
         };
 
         new Thread(runnable).start();
+    }
+
+    public void dropDownSortingOptions(View view)
+    {
+        if (view.getId() == R.id.dropDown)
+        {
+            choosePriceLayout.setVisibility(view.GONE);
+            sortingLayout.animate().translationYBy(70f).setDuration(130);
+            products.animate().translationYBy(70f).setDuration(130);
+            setButtonEnables(true);
+
+            upArrow.setVisibility(View.VISIBLE);
+            downArrow.setVisibility(View.GONE);
+        }
+        else if (view.getId() == R.id.pullUp)
+        {
+            if (sortingLayout.getVisibility() == View.GONE)
+            {
+                sortingLayout.setVisibility(View.VISIBLE);
+                choosePriceLayout.setVisibility(View.GONE);
+            }
+
+            setButtonEnables(false);
+            sortingLayout.animate().translationYBy(-70f).setDuration(130);
+            products.animate().translationYBy(-70f).setDuration(130);
+            upArrow.setVisibility(View.GONE);
+            downArrow.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void showPriceOptions(View view)
+    {
+        choosePriceLayout.setVisibility(View.VISIBLE);
+        sortingLayout.setVisibility(View.GONE);
+        sortPrice.setChecked(false);
+    }
+
+    public void showSortLayout(View view)
+    {
+        choosePriceLayout.setVisibility(View.GONE);
+        sortingLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void setButtonEnables(boolean enable)
+    {
+        sortName.setEnabled(enable);
+        sortBrand.setEnabled(enable);
+        sortPrice.setEnabled(enable);
+    }
+
+    private void initializeSortingButtons()
+    {
+        sortName.setText("Name"); sortName.setTextOff("Name"); sortName.setTextOn("Name");
+        sortBrand.setText("Brand"); sortBrand.setTextOff("Brand"); sortBrand.setTextOn("Brand");
+        sortPrice.setText("Price"); sortPrice.setTextOff("Price"); sortPrice.setTextOn("Price");
+        priceLowToHigh.setText("Low to High"); priceLowToHigh.setTextOff("Low to High"); priceLowToHigh.setTextOn("Low to High");
+        priceHighToLow.setText("High to Low"); priceHighToLow.setTextOff("High to Low"); priceHighToLow.setTextOn("High to Low");
+
+        sortName.setChecked(true);
+
+        sortingLayout.setVisibility(View.VISIBLE);
+        sortingLayout.setY(-70f);
+    }
+
+    public void sortBy(View view)
+    {
+        switch(view.getId())
+        {
+            case R.id.sortName:
+                sortName.setChecked(true);
+                sortBrand.setChecked(false);
+                sortPrice.setChecked(false);
+                priceHighToLow.setChecked(false);
+                priceLowToHigh.setChecked(false);
+                break;
+            case R.id.sortBrand:
+                sortName.setChecked(false);
+                sortBrand.setChecked(true);
+                sortPrice.setChecked(false);
+                priceHighToLow.setChecked(false);
+                priceLowToHigh.setChecked(false);
+                break;
+            case R.id.lowToHigh:
+                sortName.setChecked(false);
+                sortBrand.setChecked(false);
+                sortPrice.setChecked(true);
+                priceHighToLow.setChecked(false);
+                priceLowToHigh.setChecked(true);
+                break;
+            case R.id.highToLow:
+                sortName.setChecked(false);
+                sortBrand.setChecked(false);
+                sortPrice.setChecked(true);
+                priceHighToLow.setChecked(true);
+                priceLowToHigh.setChecked(false);
+                break;
+        }
+        viewItemsList = sortItemsList(viewItemsList);
+        itemsAdapter.setFilter(viewItemsList);
     }
 }

@@ -190,4 +190,23 @@ public class FragmentHolder extends AppCompatActivity {
         inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
     }
 
+    public void dropDownSortingOptions(View view)
+    {
+        searchItems.dropDownSortingOptions(view);
+    }
+
+    public void showPriceOptions(View view)
+    {
+        searchItems.showPriceOptions(view);
+    }
+
+    public void showSortLayout(View view)
+    {
+        searchItems.showSortLayout(view);
+    }
+
+    public void sortBy(View view)
+    {
+        searchItems.sortBy(view);
+    }
 }
