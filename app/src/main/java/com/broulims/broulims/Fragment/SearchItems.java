@@ -257,6 +257,9 @@ public class SearchItems extends Fragment  {
             products.animate().translationYBy(70f).setDuration(130);
             setButtonEnables(true);
 
+            if (priceHighToLow.isChecked() || priceLowToHigh.isChecked())
+                sortPrice.setChecked(true);
+
             upArrow.setVisibility(View.VISIBLE);
             downArrow.setVisibility(View.GONE);
         }
@@ -276,6 +279,14 @@ public class SearchItems extends Fragment  {
         }
     }
 
+    private void setButtonEnables(boolean enable)
+    {
+        sortName.setEnabled(enable);
+        sortBrand.setEnabled(enable);
+        sortPrice.setEnabled(enable);
+    }
+
+
     public void showPriceOptions(View view)
     {
         choosePriceLayout.setVisibility(View.VISIBLE);
@@ -287,13 +298,6 @@ public class SearchItems extends Fragment  {
     {
         choosePriceLayout.setVisibility(View.GONE);
         sortingLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void setButtonEnables(boolean enable)
-    {
-        sortName.setEnabled(enable);
-        sortBrand.setEnabled(enable);
-        sortPrice.setEnabled(enable);
     }
 
     private void initializeSortingButtons()
