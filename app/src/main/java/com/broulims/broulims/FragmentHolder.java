@@ -2,7 +2,6 @@ package com.broulims.broulims;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,7 +14,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 

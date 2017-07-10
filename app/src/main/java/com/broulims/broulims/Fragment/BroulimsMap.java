@@ -113,9 +113,5 @@ public class BroulimsMap extends Fragment
                 webView.evaluateJavascript(URL,null);
             }
         });
-
-
     }
-
-
 }

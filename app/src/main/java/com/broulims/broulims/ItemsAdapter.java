@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -75,9 +74,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 String itemDesc = products.get(position).getItemDescription();
                 Long aisle = products.get(position).getAisle();
                 addToList(products.get(position));
-
-
-
             }
         });
     }

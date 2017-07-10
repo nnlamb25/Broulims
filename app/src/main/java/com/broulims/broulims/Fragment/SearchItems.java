@@ -1,7 +1,5 @@
 package com.broulims.broulims.Fragment;
 
-import android.content.Context;
-import android.media.Image;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -195,7 +192,13 @@ public class SearchItems extends Fragment  {
                 @Override
                 public int compare(Item o1, Item o2)
                 {
-                    return o1.getBasePrice().compareTo(o2.getBasePrice());
+                    String price1String = o1.getBasePrice().replace("$", "");
+                    String price2String = o2.getBasePrice().replace("$", "");
+
+                    Float price1 = Float.parseFloat(price1String);
+                    Float price2 = Float.parseFloat(price2String);
+
+                    return price1.compareTo(price2);
                 }
             });
         }
@@ -205,7 +208,13 @@ public class SearchItems extends Fragment  {
                 @Override
                 public int compare(Item o1, Item o2)
                 {
-                    return o1.getBasePrice().compareTo(o2.getBasePrice());
+                    String price1String = o1.getBasePrice().replace("$", "");
+                    String price2String = o2.getBasePrice().replace("$", "");
+
+                    Float price1 = Float.parseFloat(price1String);
+                    Float price2 = Float.parseFloat(price2String);
+
+                    return price1.compareTo(price2);
                 }
             });
 

@@ -6,8 +6,6 @@ package com.broulims.broulims;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
