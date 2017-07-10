@@ -134,8 +134,15 @@ public class SearchItems extends Fragment  {
                             if (name.contains(newText))
                                 viewItemsList.add(i);
                         }
-                        viewItemsList = sortItemsList(viewItemsList);
-                        itemsAdapter.setFilter(viewItemsList);
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run()
+                            {
+                                viewItemsList = sortItemsList(viewItemsList);
+                                itemsAdapter.setFilter(viewItemsList);
+                            }
+                        });
                     }
                 }
             }
@@ -356,7 +363,13 @@ public class SearchItems extends Fragment  {
                 priceLowToHigh.setChecked(false);
                 break;
         }
-        viewItemsList = sortItemsList(viewItemsList);
-        itemsAdapter.setFilter(viewItemsList);
+        handler.post(new Runnable() {
+            @Override
+            public void run()
+            {
+                viewItemsList = sortItemsList(viewItemsList);
+                itemsAdapter.setFilter(viewItemsList);
+            }
+        });
     }
 }
