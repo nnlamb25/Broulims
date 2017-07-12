@@ -363,13 +363,31 @@ public class SearchItems extends Fragment  {
                 priceLowToHigh.setChecked(false);
                 break;
         }
-        handler.post(new Runnable() {
+
+        final Runnable runnable = new Runnable() {
             @Override
             public void run()
             {
-                viewItemsList = sortItemsList(viewItemsList);
-                itemsAdapter.setFilter(viewItemsList);
+                while (!productDatabase.isDataReady())
+                {
+                    // Waiting for data to load...
+                }
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        loadingSpinner.setVisibility(View.GONE);
+
+                        productList = productDatabase.productList;
+
+                        itemsAdapter = new ItemsAdapter(getActivity(),productList);
+                        products.setAdapter(itemsAdapter);
+                    }
+                });
             }
-        });
+        };
+
+        new Thread(runnable).start();
     }
 }
