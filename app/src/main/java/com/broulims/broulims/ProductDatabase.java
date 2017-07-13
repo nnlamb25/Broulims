@@ -38,6 +38,7 @@ public class ProductDatabase
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
+
         // This updates the database on the phone each time the database online is changed
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override
@@ -46,9 +47,10 @@ public class ProductDatabase
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     Item item = ds.getValue(Item.class);
-
+                    item.setKey(ds.getKey());
                     productList.add(item);
                 }
+
 
                 dataReady = true;
                 Log.i("Database Size", String.valueOf(productList.size()) + " items");

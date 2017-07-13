@@ -40,8 +40,9 @@ package com.broulims.broulims;
  */
 public class Item {
 
+    private String Key;
     private Long Aisle;
-    private Long BaseMultiple;
+    private Long Count;
     private Long DepartmentNumber;
     private Long Facing;
     private Long Section;
@@ -54,7 +55,6 @@ public class Item {
     private String Side;
     private String UOM;
 
-
     public Long getAisle() {
         return Aisle;
     }
@@ -63,12 +63,16 @@ public class Item {
         Aisle = aisle;
     }
 
-    public Long getBaseMultiple() {
-        return BaseMultiple;
+    public String getKey() {return Key;}
+
+    public void setKey(String key) {this.Key = key;}
+
+    public Long getCount() {
+        return Count;
     }
 
-    public void setBaseMultiple(Long baseMultiple) {
-        BaseMultiple = baseMultiple;
+    public void setCount(Long count) {
+        Count = count;
     }
 
     public Long getDepartmentNumber() {
@@ -166,7 +170,7 @@ public class Item {
      * Default Constructor for Item class
      */
     public Item(Long aisle,
-                Long baseMultiple,
+                Long Count,
                 Long departmentNumber,
                 Long facing,
                 Long section,
@@ -178,8 +182,9 @@ public class Item {
                 String POSDescription,
                 String side,
                 String UOM) {
+        this.Key = Key;
         Aisle = aisle;
-        BaseMultiple = baseMultiple;
+        this.Count = Count;
         DepartmentNumber = departmentNumber;
         Facing = facing;
         Section = section;
@@ -202,7 +207,7 @@ public class Item {
     public Item()
     {
         Aisle = 0l;
-        BaseMultiple = 0l;
+        Count = 0l;
         DepartmentNumber = 0l;
         Facing = 0l;
         Section = 0l;
@@ -214,6 +219,7 @@ public class Item {
         POSDescription = "";
         Side = "";
         UOM = "";
+        Key = "";
     }
 
 }
