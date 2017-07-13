@@ -100,7 +100,6 @@ public class SearchItems extends Fragment  {
                 else
                 {
                     showBottom();
-                    //Log.i("key", "notshowing");
                 }
 
             }

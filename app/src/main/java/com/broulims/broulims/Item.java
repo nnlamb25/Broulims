@@ -175,6 +175,7 @@ public class Item {
                 Long facing,
                 Long section,
                 Long size,
+                String Key,
                 String basePrice,
                 String baseStart,
                 String departmentName,

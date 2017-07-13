@@ -68,17 +68,15 @@ public class BroulimsMap extends Fragment
         View view = inflater.inflate(R.layout.broulims_map, container, false);
         products = new ArrayList<>();
 
-        final int items = products.size();
-
         // Load the webpage for the map, yeah say goodbye to google maps
         webView = (WebView) view.findViewById(R.id.map_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/broulimsmap.html");
 
+        // This will load all the values into the map
         loadList();
 
-        // Inflate the layout for this fragment
         return view;
     }
 
