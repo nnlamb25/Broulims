@@ -6,7 +6,7 @@
 	<title>Mazemap JavaScript API example</title>
 
 	<link rel="stylesheet" href="https://api.mazemap.com/js/v1.2.10/mazemap.min.css">
-	<script src='mazemap.min.js'></script>
+	<script src='https://api.mazemap.com/js/v1.2.10/mazemap.min.js'></script>
 	<script>
         window.L = window.Maze;
     </script>
@@ -155,7 +155,7 @@ function getLocation(aisle){
         layerGroup.addLayer(marker);
         var overlay = {};
         overlay[item] = layerGroup;
-       // L.control.layers(null, overlay).addTo(map);
+        //L.control.layers(null, overlay).addTo(map);
 
         map.setView(getLocation(aisle), 20);
 
