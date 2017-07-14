@@ -155,7 +155,7 @@ function getLocation(aisle){
         layerGroup.addLayer(marker);
         var overlay = {};
         overlay[item] = layerGroup;
-        L.control.layers(null, overlay).addTo(map);
+       // L.control.layers(null, overlay).addTo(map);
 
         map.setView(getLocation(aisle), 20);
 

@@ -19,6 +19,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +30,10 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 
 import com.broulims.broulims.Item;
+import com.broulims.broulims.mapItemsAdapter;
 import com.broulims.broulims.R;
 
 import java.util.ArrayList;
@@ -56,6 +62,9 @@ public class BroulimsMap extends Fragment
 
     private static WebView webView;
     private static List<Item> products;
+    private static RecyclerView productsView;
+    private static mapItemsAdapter mapItemsAdapter;
+    private static boolean menuOpen;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,15 +77,24 @@ public class BroulimsMap extends Fragment
         View view = inflater.inflate(R.layout.broulims_map, container, false);
         products = new ArrayList<>();
 
+        menuOpen = false;
+
         // Load the webpage for the map, yeah say goodbye to google maps
         webView = (WebView) view.findViewById(R.id.map_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/broulimsmap.html");
 
-        // This will load all the values into the map
+        productsView = (RecyclerView) view.findViewById(R.id.Items);
+        productsView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        productsView.setItemAnimator(new DefaultItemAnimator());
+        productsView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
+
+        mapItemsAdapter = new mapItemsAdapter(getActivity(), products);
+
         loadList();
 
+        // Inflate the layout for this fragment
         return view;
     }
 
@@ -91,9 +109,28 @@ public class BroulimsMap extends Fragment
         loadList();
     }
 
+    public static void removeFromList(Item item)
+    {
+        products.remove(item);
+
+        Log.i("Added", item.getItemDescription());
+
+        final int items = products.size();
+        String count = " " + items;
+        Log.i("count", count);
+
+        loadList();
+    }
+
     public static void loadList(){
         webView.loadUrl("file:///android_asset/broulimsmap.html");
         String line = "";
+
+        mapItemsAdapter.setFilter(products);
+        productsView.setAdapter(mapItemsAdapter);
+
+        if (!menuOpen)
+            productsView.setTranslationX(productsView.getWidth());
 
         for (int i = 0; i < products.size(); i++)
         {
@@ -111,5 +148,23 @@ public class BroulimsMap extends Fragment
                 webView.evaluateJavascript(URL,null);
             }
         });
+    }
+
+    public void showItems(View view)
+    {
+        if (!menuOpen)
+        {
+            productsView.animate().translationXBy(-1 * productsView.getWidth()).setDuration(500);
+            webView.animate().translationXBy(-300).setDuration(500);
+            view.animate().translationXBy(-300).setDuration(500);
+            menuOpen = true;
+        }
+        else
+        {
+            productsView.animate().translationXBy(productsView.getWidth()).setDuration(500);
+            webView.animate().translationXBy(300).setDuration(500);
+            view.animate().translationXBy(300).setDuration(500);
+            menuOpen = false;
+        }
     }
 }

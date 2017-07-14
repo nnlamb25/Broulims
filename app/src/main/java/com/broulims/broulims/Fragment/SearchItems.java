@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.*;
-import android.support.v7.widget.DividerItemDecoration;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -48,7 +47,7 @@ public class SearchItems extends Fragment  {
 
     RecyclerView products;
     ItemsAdapter itemsAdapter;
-    List<Item> productList = new ArrayList<>();
+    List<Item> productList;
     ArrayList<Item> viewItemsList;
     ProgressBar loadingSpinner;
     EditText search;
@@ -78,6 +77,7 @@ public class SearchItems extends Fragment  {
         productDatabase = new ProductDatabase();
         search = (EditText) view.findViewById(R.id.search_box);
         sortingLayout = (LinearLayout) view.findViewById(R.id.sortByLayout);
+        productList = new ArrayList<>();
         choosePriceLayout = (LinearLayout) view.findViewById(R.id.choosePriceLayout);
         upArrow = (ImageView) view.findViewById(R.id.pullUp);
         downArrow = (ImageView) view.findViewById(R.id.dropDown);
@@ -155,10 +155,8 @@ public class SearchItems extends Fragment  {
         });
         handler = new Handler();
 
-        RecyclerView.LayoutManager productLayoutManager = new LinearLayoutManager(getActivity());
-
         products = (RecyclerView) view.findViewById(R.id.products);
-        products.setLayoutManager(productLayoutManager);
+        products.setLayoutManager(new LinearLayoutManager(getActivity()));
         products.setItemAnimator(new DefaultItemAnimator());
         products.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
 
@@ -378,9 +376,9 @@ public class SearchItems extends Fragment  {
                     {
                         loadingSpinner.setVisibility(View.GONE);
 
-                        productList = productDatabase.productList;
+                        sortItemsList(viewItemsList);
 
-                        itemsAdapter = new ItemsAdapter(getActivity(),productList);
+                        itemsAdapter = new ItemsAdapter(getActivity(),viewItemsList);
                         products.setAdapter(itemsAdapter);
                     }
                 });
