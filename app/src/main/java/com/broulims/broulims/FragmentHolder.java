@@ -21,6 +21,8 @@ import com.broulims.broulims.Fragment.BroulimsMap;
 import com.broulims.broulims.Fragment.WebsiteView;
 import com.broulims.broulims.Fragment.SearchItems;
 
+import static com.broulims.broulims.Fragment.BroulimsMap.loadList;
+
 /**
  * This is the front page of the app, which contains
  * the bottom navigation and holds all the fragments.
@@ -81,6 +83,7 @@ public class FragmentHolder extends AppCompatActivity {
                         break;
                     case R.id.Bottombaritemtwo:
                         viewPager.setCurrentItem(1);
+                        loadList();
                         break;
                     case R.id.Bottombaritemothree:
                         viewPager.setCurrentItem(2);

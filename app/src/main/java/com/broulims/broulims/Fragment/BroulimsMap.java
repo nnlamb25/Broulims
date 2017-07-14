@@ -92,8 +92,6 @@ public class BroulimsMap extends Fragment
 
         mapItemsAdapter = new mapItemsAdapter(getActivity(), products);
 
-        loadList();
-
         // Inflate the layout for this fragment
         return view;
     }
@@ -125,7 +123,6 @@ public class BroulimsMap extends Fragment
     public static void loadList(){
         webView.loadUrl("file:///android_asset/broulimsmap.html");
         String line = "";
-
         mapItemsAdapter.setFilter(products);
         productsView.setAdapter(mapItemsAdapter);
 

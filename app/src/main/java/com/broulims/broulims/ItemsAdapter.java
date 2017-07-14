@@ -95,7 +95,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 });
                 FirebaseDatabase.getInstance().getReference().child(UPC).child("Count").setValue(dbCount + 1);
                 hideKeyboard(context);
-                FragmentHolder.viewMap();
                 addToList(products.get(position));
 
             }

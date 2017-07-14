@@ -155,20 +155,22 @@ function getLocation(aisle){
         layerGroup.addLayer(marker);
         var overlay = {};
         overlay[item] = layerGroup;
-        //L.control.layers(null, overlay).addTo(map);
+       // L.control.layers(null, overlay).addTo(map);
 
-        map.setView(getLocation(aisle), 20);
+        //map.setView(getLocation(aisle), 20);
 
     }
 
-    function searchTest(){
+function searchTest(){
     Maze.Route.getFeatureGroupRoute(   // Can be replaced with Maze.Route.getGeoJsonRoute(
     getLocation(1, "food"), 3,
     getLocation(13, "water"), 3,
     {
         connectToStart: true,
         connectToEnd: true,
+
     }
+
 ).then(function(featGroup){
     featGroup.addTo(map);
     map.fitBounds(featGroup.getBounds());
@@ -179,7 +181,6 @@ function getLocation(aisle){
 
     onCreate();
     //searchTest();
-    //createMarkers('31A', '20C');
 	</script>
 
 
