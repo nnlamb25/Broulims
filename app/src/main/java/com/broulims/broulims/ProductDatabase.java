@@ -65,7 +65,11 @@ public class ProductDatabase
         Log.i("Value Event Listener", "Attached to database reference");
     }
 
-    // Checks to see if the product list has been filled and is ready to be displayed
+    /**
+     * check to see if the data is ready to fill in
+     * and open for the user
+     * @return true when data is ready
+     */
     public boolean isDataReady()
     {
         return dataReady;

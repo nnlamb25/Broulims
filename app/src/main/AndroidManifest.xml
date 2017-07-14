@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".FragmentHolder">
             <intent-filter>
+                <provider  android:name=".MySuggestionProvider"
+                    android:authorities="com.example.MySuggestionProvider" />
+
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>

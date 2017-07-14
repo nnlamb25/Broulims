@@ -136,6 +136,12 @@ public class FragmentHolder extends AppCompatActivity {
 
     }
 
+    /**
+     * Assigned the view options for the adapter to function
+     * with the bottom navigation bar
+     * @param viewPager the view above the bottom navigation bar
+     *
+     */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         websiteView=new WebsiteView();
@@ -147,25 +153,41 @@ public class FragmentHolder extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+
     static public void viewMap()
     {
         viewPager.setCurrentItem(1);
     }
 
-
+    /**
+     * show the bottom navigation bar
+     */
     static public void showBottom() {
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * hide the bottom navigation bar
+     */
     static public void hideBottom() {
         bottomNavigationView.setVisibility(View.GONE);
     }
 
+    /**
+     * convert dp value to pixel
+     * @param context the context that contains the activity
+     * @param valueInDp or
+     * @return the pixel values
+     */
     public static float dpToPx(Context context, float valueInDp) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
     }
 
+    /**
+     * hide the keyboard for the map activity
+     * @param ctx the context that contains the activity
+     */
     public static void hideKeyboard(Context ctx) {
         InputMethodManager inputManager = (InputMethodManager) ctx
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -179,29 +201,19 @@ public class FragmentHolder extends AppCompatActivity {
     }
 
 
-    public static void showKeyboard(Context ctx) {
-        InputMethodManager inputManager = (InputMethodManager) ctx
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        // check if no view has focus:
-        View v = ((Activity) ctx).getCurrentFocus();
-        if (v == null)
-            return;
-
-        inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-    }
 
     public void dropDownSortingOptions(View view)
     {
         searchItems.dropDownSortingOptions(view);
     }
 
+
     public void showPriceOptions(View view)
     {
         searchItems.showPriceOptions(view);
     }
 
-    public void showSortLayout(View view)
+    void showSortLayout(View view)
     {
         searchItems.showSortLayout(view);
     }

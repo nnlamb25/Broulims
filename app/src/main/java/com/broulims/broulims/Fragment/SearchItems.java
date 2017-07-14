@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.support.v7.widget.*;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.broulims.broulims.Item;
@@ -28,6 +31,7 @@ import java.util.List;
 
 import static com.broulims.broulims.FragmentHolder.dpToPx;
 import static com.broulims.broulims.FragmentHolder.hideBottom;
+import static com.broulims.broulims.FragmentHolder.hideKeyboard;
 import static com.broulims.broulims.FragmentHolder.showBottom;
 
 /**
@@ -76,6 +80,21 @@ public class SearchItems extends Fragment  {
 
         productDatabase = new ProductDatabase();
         search = (EditText) view.findViewById(R.id.search_box);
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                // TODO Auto-generated method stub
+
+                if ((actionId== EditorInfo.IME_ACTION_DONE )   )
+                {
+                    hideKeyboard(getActivity());
+                    return true;
+                }
+                return false;
+
+            }
+        });
         sortingLayout = (LinearLayout) view.findViewById(R.id.sortByLayout);
         productList = new ArrayList<>();
         choosePriceLayout = (LinearLayout) view.findViewById(R.id.choosePriceLayout);
@@ -168,6 +187,12 @@ public class SearchItems extends Fragment  {
         return view;
     }
 
+    /**
+     * Different sorting algorithm that will sort
+     * based on the options
+     * @param itemsList the current unsorted list
+     * @return sorted list base on options
+     */
     private ArrayList<Item> sortItemsList(ArrayList<Item> itemsList)
     {
         if (sortName.isChecked())
@@ -261,6 +286,11 @@ public class SearchItems extends Fragment  {
         new Thread(runnable).start();
     }
 
+    /**
+     * Options are expected to drop down
+     * when the user selected this option
+     * @param view is the current view
+     */
     public void dropDownSortingOptions(View view)
     {
         if (view.getId() == R.id.dropDown)
@@ -292,6 +322,11 @@ public class SearchItems extends Fragment  {
         }
     }
 
+    /**
+     * Manipulate button functionality
+     * @param enable boolean to turn on the button
+     *
+     */
     private void setButtonEnables(boolean enable)
     {
         sortName.setEnabled(enable);
@@ -313,6 +348,10 @@ public class SearchItems extends Fragment  {
         sortingLayout.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Buttons will have different function depends
+     * on user selection
+     */
     private void initializeSortingButtons()
     {
         sortName.setText("Name"); sortName.setTextOff("Name"); sortName.setTextOn("Name");
@@ -327,6 +366,10 @@ public class SearchItems extends Fragment  {
         sortingLayout.setY(-70f);
     }
 
+    /**
+     * Soring options
+     * @param view is the current view
+     */
     public void sortBy(View view)
     {
         switch(view.getId())

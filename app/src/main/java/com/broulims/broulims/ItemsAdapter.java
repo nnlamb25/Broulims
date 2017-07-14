@@ -102,12 +102,27 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
 
     // This is the number of items the database the phone has access to currently holds
+
+
+    /**
+     * get the size of the list
+     *
+     * @return the number of items that the
+     * phone is currently hold
+     */
     @Override
     public int getItemCount() {
         //System.out.println("ITEM COUNT: " + products.size());
         return products.size();
     }
 
+
+    /**
+     * filtering through an old list to match
+     * with user input string
+     * @param newList the list of the items on the view
+     *
+     */
     public void setFilter(List<Item> newList) {
         this.products = new ArrayList<>();
         this.products.addAll(newList);

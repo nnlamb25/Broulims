@@ -27,6 +27,8 @@
 
             <EditText
                 android:id="@+id/search_box"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
                 android:layout_width="325dp"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/white_search"
