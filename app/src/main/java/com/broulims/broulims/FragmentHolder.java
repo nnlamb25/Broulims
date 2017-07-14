@@ -223,8 +223,18 @@ public class FragmentHolder extends AppCompatActivity {
         searchItems.sortBy(view);
     }
 
-    public void showItems(View view)
+    public void openMenu(View view)
     {
-        broulimsMap.showItems(view);
+        broulimsMap.openMenu(view);
+    }
+
+    public void closeMenu(View view)
+    {
+        broulimsMap.closeMenu(view);
+    }
+
+    public void clearItems(View view)
+    {
+        broulimsMap.clearItems(view);
     }
 }

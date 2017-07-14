@@ -38,6 +38,7 @@
                 android:textColorHint="@color/colorWhite"
                 android:textSize="20sp"
                 android:theme="@style/AppTheme.White"
+                android:maxLines="1"
                 />
 
             <ImageView

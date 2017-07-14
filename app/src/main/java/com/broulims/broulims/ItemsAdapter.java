@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,9 +16,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.broulims.broulims.Fragment.BroulimsMap.addToList;
+import static com.broulims.broulims.Fragment.BroulimsMap.alreadyInList;
 import static com.broulims.broulims.FragmentHolder.hideKeyboard;
 
 /**
@@ -95,7 +96,16 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 });
                 FirebaseDatabase.getInstance().getReference().child(UPC).child("Count").setValue(dbCount + 1);
                 hideKeyboard(context);
-                addToList(products.get(position));
+                if (!alreadyInList(item))
+                {
+                    //FragmentHolder.viewMap();
+                    addToList(context, products.get(position));
+                    Toast.makeText(context, products.get(position).getItemDescription() + " Added", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(context, "Already Selected", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

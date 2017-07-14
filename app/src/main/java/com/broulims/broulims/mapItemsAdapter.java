@@ -10,9 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.broulims.broulims.Fragment.BroulimsMap.addToList;
 import static com.broulims.broulims.Fragment.BroulimsMap.removeFromList;
-import static com.broulims.broulims.FragmentHolder.hideKeyboard;
 
 /**
  * This allows the list view of items to be viewable in the recycle view

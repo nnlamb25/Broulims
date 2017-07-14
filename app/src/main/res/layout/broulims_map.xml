@@ -26,37 +26,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/openSideMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:clickable="true"
-            android:onClick="showItems"
             app:fabSize="mini"
-            app:srcCompat="?attr/homeAsUpIndicator"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            app:srcCompat="?attr/homeAsUpIndicator"/>-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/Items"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+        <RelativeLayout
+            android:id="@+id/sideMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            <ImageView
+                android:id="@+id/closeSideMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:onClick="closeMenu"
+                app:srcCompat="@mipmap/back_button"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/Items"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/closeSideMenu">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/clearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:onClick="clearItems"
+                android:text="Clear Items"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/closeSideMenu"
+                android:layout_toStartOf="@+id/closeSideMenu"
+                android:layout_marginRight="11dp"
+                android:layout_marginEnd="11dp"/>
+        </RelativeLayout>
 
         <WebView
             android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
         </WebView>
+
+        <ImageView
+            android:id="@+id/openSideMenu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:onClick="openMenu"
+            app:srcCompat="@drawable/hamburger_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
         <!--android:layout_toRightOf="@+id/map_view" -->
 

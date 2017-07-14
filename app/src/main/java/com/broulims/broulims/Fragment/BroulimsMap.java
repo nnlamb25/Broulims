@@ -15,6 +15,7 @@
 
 package com.broulims.broulims.Fragment;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -30,7 +31,9 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.broulims.broulims.Item;
 import com.broulims.broulims.mapItemsAdapter;
@@ -38,6 +41,8 @@ import com.broulims.broulims.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.View.GONE;
 
 
 /**
@@ -64,7 +69,10 @@ public class BroulimsMap extends Fragment
     private static List<Item> products;
     private static RecyclerView productsView;
     private static mapItemsAdapter mapItemsAdapter;
-    private static boolean menuOpen;
+    private static ImageView openSideBar;
+    private static ImageView closeSideBar;
+    private static TextView clearItems;
+    private static RelativeLayout sideMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +85,13 @@ public class BroulimsMap extends Fragment
         View view = inflater.inflate(R.layout.broulims_map, container, false);
         products = new ArrayList<>();
 
-        menuOpen = false;
+        openSideBar = (ImageView) view.findViewById(R.id.openSideMenu);
+        closeSideBar = (ImageView) view.findViewById(R.id.closeSideMenu);
+        clearItems = (TextView) view.findViewById(R.id.clearButton);
+        sideMenu = (RelativeLayout) view.findViewById(R.id.sideMenu);
+
+        sideMenu.setTranslationX(300
+        );
 
         // Load the webpage for the map, yeah say goodbye to google maps
         webView = (WebView) view.findViewById(R.id.map_view);
@@ -96,15 +110,14 @@ public class BroulimsMap extends Fragment
         return view;
     }
 
-    public static void addToList(Item item){
-        products.add(item);
-        Log.i("Added", item.getItemDescription());
+    public static void addToList(Context context, Item item){
+            products.add(item);
+            Log.i("Added", item.getItemDescription());
+            final int items = products.size();
+            String count = " " + items;
+            Log.i("count", count);
 
-        final int items = products.size();
-        String count = " " + items;
-        Log.i("count", count);
-
-        loadList();
+            loadList();
     }
 
     public static void removeFromList(Item item)
@@ -126,9 +139,6 @@ public class BroulimsMap extends Fragment
         mapItemsAdapter.setFilter(products);
         productsView.setAdapter(mapItemsAdapter);
 
-        if (!menuOpen)
-            productsView.setTranslationX(productsView.getWidth());
-
         for (int i = 0; i < products.size(); i++)
         {
             final int item = i;
@@ -147,21 +157,39 @@ public class BroulimsMap extends Fragment
         });
     }
 
-    public void showItems(View view)
+    public static boolean alreadyInList(Item item)
     {
-        if (!menuOpen)
-        {
-            productsView.animate().translationXBy(-1 * productsView.getWidth()).setDuration(500);
-            webView.animate().translationXBy(-300).setDuration(500);
-            view.animate().translationXBy(-300).setDuration(500);
-            menuOpen = true;
-        }
+        if (products.contains(item))
+            return true;
         else
-        {
-            productsView.animate().translationXBy(productsView.getWidth()).setDuration(500);
-            webView.animate().translationXBy(300).setDuration(500);
-            view.animate().translationXBy(300).setDuration(500);
-            menuOpen = false;
-        }
+            return false;
     }
+
+
+    public static void openMenu(View view)
+    {
+        sideMenu.animate().translationXBy(-1 * productsView.getWidth()).setDuration(200);
+        webView.animate().translationXBy(-300).setDuration(200);
+        openSideBar.setVisibility(GONE);
+        openSideBar.setEnabled(false);
+        clearItems.setEnabled(true);
+        closeSideBar.setEnabled(true);
+    }
+
+    public static void closeMenu(View view)
+    {
+        sideMenu.animate().translationXBy(productsView.getWidth()).setDuration(200);
+        webView.animate().translationXBy(300).setDuration(200);
+        openSideBar.setVisibility(View.VISIBLE);
+        openSideBar.setEnabled(true);
+        clearItems.setEnabled(false);
+        closeSideBar.setEnabled(false);
+    }
+
+    public static void clearItems(View view)
+    {
+        products.clear();
+        loadList();
+    }
+
 }
