@@ -98,7 +98,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 hideKeyboard(context);
                 if (!alreadyInList(item))
                 {
-                    //FragmentHolder.viewMap();
                     addToList(context, products.get(position));
                     Toast.makeText(context, products.get(position).getItemDescription() + " Added", Toast.LENGTH_SHORT).show();
                 }

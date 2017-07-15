@@ -15,6 +15,7 @@
 
 package com.broulims.broulims.Fragment;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -110,16 +111,15 @@ public class BroulimsMap extends Fragment
     }
 
     /*******************************************
-     * removeFromList()
+     * addToList()
      * adds an item from the side list
      ********************************************/
-    public static void addToList(Item item){
-        products.add(item);
-        Log.i("Added", item.getItemDescription());
-
-        final int items = products.size();
-        String count = " " + items;
-        Log.i("count", count);
+    public static void addToList(Context context, Item item){
+            products.add(item);
+            Log.i("Added", item.getItemDescription());
+            final int items = products.size();
+            String count = " " + items;
+            Log.i("count", count);
 
             loadList();
     }
