@@ -33,9 +33,10 @@
 <script>
 
 
-
+    // this creates a map variable
     var map = Maze.map('mazemap-container');
 
+    // sets the maps coordinates and bounds
     function onCreate(){
     map.setView([43.8272716,-111.787400], 18.5);
     map._layersMaxZoom=22;
@@ -43,6 +44,7 @@
 
     map.setMaxBounds(map.getBounds());
 
+    // This gets the bounds for the map image that is going to be placed on our map
     var topleft =  Maze.latLng({ lat: 43.82765, lng: -111.78790 }),
         topright = Maze.latLng({ lat: 43.82765, lng: -111.78685 }),
         bottomleft = Maze.latLng({lat: 43.8270, lng: -111.78790 });
@@ -54,6 +56,8 @@
         overlay.addTo(map);
     }
 
+    // this is used to make the rest of the markers, it get's exact coordinates for the spots
+    // on the map
     /*/ Click on the map
     map.on('click', function(e){
         var string = e.latlng
@@ -161,27 +165,8 @@ function getLocation(aisle){
 
     }
 
-function searchTest(){
-    Maze.Route.getFeatureGroupRoute(   // Can be replaced with Maze.Route.getGeoJsonRoute(
-    getLocation(1, "food"), 3,
-    getLocation(13, "water"), 3,
-    {
-        connectToStart: true,
-        connectToEnd: true,
+onCreate();
 
-    }
-
-).then(function(featGroup){
-    featGroup.addTo(map);
-    map.fitBounds(featGroup.getBounds());
-    map.setZLevel(3);
-});
-        return;
-    }
-
-    onCreate();
-	</script>
-
-
+</script>
 </body>
 </html>

@@ -15,7 +15,6 @@
 
 package com.broulims.broulims.Fragment;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -110,16 +109,25 @@ public class BroulimsMap extends Fragment
         return view;
     }
 
-    public static void addToList(Context context, Item item){
-            products.add(item);
-            Log.i("Added", item.getItemDescription());
-            final int items = products.size();
-            String count = " " + items;
-            Log.i("count", count);
+    /*******************************************
+     * removeFromList()
+     * adds an item from the side list
+     ********************************************/
+    public static void addToList(Item item){
+        products.add(item);
+        Log.i("Added", item.getItemDescription());
+
+        final int items = products.size();
+        String count = " " + items;
+        Log.i("count", count);
 
             loadList();
     }
 
+    /*******************************************
+     * removeFromList()
+     * removes an item from the side list
+     ********************************************/
     public static void removeFromList(Item item)
     {
         products.remove(item);
@@ -133,6 +141,11 @@ public class BroulimsMap extends Fragment
         loadList();
     }
 
+     /*******************************************
+      * loadList()
+      * this functions takes all the items in the list
+      * and loads it to the map using javascript.
+     ********************************************/
     public static void loadList(){
         webView.loadUrl("file:///android_asset/broulimsmap.html");
         String line = "";
@@ -157,6 +170,10 @@ public class BroulimsMap extends Fragment
         });
     }
 
+    /*******************************************
+     * alreadyInList()
+     * keeps track if an item has already been selected
+     ********************************************/
     public static boolean alreadyInList(Item item)
     {
         if (products.contains(item))
